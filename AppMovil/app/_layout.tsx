@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
@@ -59,11 +59,11 @@ function RootNavigator() {
 
   // Avisos: el recordatorio local se reprograma con cada cambio de cuenta, y el
   // token remoto se registra una vez que sabemos quién es el usuario.
+  // Si el entorno no soporta notificaciones (web, Expo Go) todo esto no hace nada.
   useEffect(() => {
     if (!account) return;
     let cancelado = false;
     (async () => {
-      if (Platform.OS === 'web') return;
       const permitido = await pedirPermiso();
       if (!permitido || cancelado) return;
       await reprogramarRecordatorioDePago(account);

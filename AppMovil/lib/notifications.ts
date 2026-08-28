@@ -1,6 +1,5 @@
 import { Platform } from 'react-native';
-import * as Notifications from 'expo-notifications';
-import * as Device from 'expo-device';
+import { isRunningInExpoGo } from 'expo';
 import Constants from 'expo-constants';
 
 import { registerPushToken, type Account } from './api';
@@ -8,26 +7,58 @@ import { registerPushToken, type Account } from './api';
 // Dos capas de aviso, porque hacen falta las dos:
 //
 // 1. LOCALES (programadas en el teléfono): el recordatorio de "te quedan 5 días
-//    para pagar". Funcionan en Expo Go, sin development build, porque la fecha
-//    de corte ya la conoce la app.
+//    para pagar". La fecha de corte ya la conoce la app, así que no necesita
+//    servidor.
 // 2. REMOTAS (push desde el servidor): "te aceptaron en el gimnasio", que la app
-//    no puede predecir. Desde el SDK 53 estas exigen un development build;
-//    en Expo Go el registro falla en silencio y la app sigue funcionando igual.
+//    no puede predecir.
+//
+// IMPORTANTE: `expo-notifications` NO se puede importar arriba. En Expo Go para
+// Android su módulo nativo ya no existe (SDK 53+), y el propio `import` lanza
+// "Cannot find native module 'ExpoTopicSubscriptionModule'" antes de que la app
+// dibuje nada. Por eso se carga bajo demanda y solo fuera de Expo Go: así la app
+// corre igual en Expo Go, sin avisos, y los activa sola en un development build.
+
+type ModuloNotificaciones = typeof import('expo-notifications');
 
 const CANAL_ANDROID = 'gymtrack-avisos';
 const ID_RECORDATORIO = 'recordatorio-pago';
 const DIAS_DE_AVISO = 5;
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldPlaySound: true,
-    shouldSetBadge: false,
-    shouldShowBanner: true,
-    shouldShowList: true,
-  }),
-});
+// undefined = todavía no se intentó cargar; null = no disponible en este entorno.
+let modulo: ModuloNotificaciones | null | undefined;
+
+export function notificacionesDisponibles(): boolean {
+  return Platform.OS !== 'web' && !isRunningInExpoGo();
+}
+
+async function cargar(): Promise<ModuloNotificaciones | null> {
+  if (modulo !== undefined) return modulo;
+  if (!notificacionesDisponibles()) {
+    modulo = null;
+    return null;
+  }
+  try {
+    const cargado = await import('expo-notifications');
+    cargado.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+        shouldShowBanner: true,
+        shouldShowList: true,
+      }),
+    });
+    modulo = cargado;
+  } catch {
+    // Entorno sin el módulo nativo: la app sigue funcionando sin avisos.
+    modulo = null;
+  }
+  return modulo;
+}
 
 export async function pedirPermiso(): Promise<boolean> {
+  const Notifications = await cargar();
+  if (!Notifications) return false;
+
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync(CANAL_ANDROID, {
       name: 'Avisos de GymTrack',
@@ -46,17 +77,21 @@ export async function pedirPermiso(): Promise<boolean> {
 }
 
 // Registra el token de este teléfono en el servidor para los avisos remotos.
-// En Expo Go o en simulador esto no puede funcionar: se ignora sin romper nada.
+// En simulador o sin proyecto de EAS no puede funcionar: se ignora sin romper nada.
 export async function registrarParaPushRemoto(userId: string): Promise<boolean> {
-  if (!Device.isDevice) return false;
+  const Notifications = await cargar();
+  if (!Notifications) return false;
+
   try {
+    const Device = await import('expo-device');
+    if (!Device.isDevice) return false;
+
     const projectId =
       Constants.expoConfig?.extra?.eas?.projectId ?? Constants.easConfig?.projectId;
     const token = await Notifications.getExpoPushTokenAsync(projectId ? { projectId } : undefined);
     await registerPushToken(userId, token.data);
     return true;
   } catch {
-    // Falta el development build, o no hay projectId de EAS todavía.
     return false;
   }
 }
@@ -64,6 +99,9 @@ export async function registrarParaPushRemoto(userId: string): Promise<boolean> 
 // Reprograma el recordatorio local de pago a partir de la fecha de corte vigente.
 // Se llama cada vez que cambia la cuenta, así que siempre refleja el último pago.
 export async function reprogramarRecordatorioDePago(account: Account | null) {
+  const Notifications = await cargar();
+  if (!Notifications) return;
+
   await Notifications.cancelScheduledNotificationAsync(ID_RECORDATORIO).catch(() => {});
 
   if (!account?.fechaProximoPago || account.membershipStatus !== 'active') return;
@@ -90,11 +128,13 @@ export async function reprogramarRecordatorioDePago(account: Account | null) {
 }
 
 export async function cancelarRecordatorios() {
+  const Notifications = await cargar();
+  if (!Notifications) return;
   await Notifications.cancelAllScheduledNotificationsAsync().catch(() => {});
 }
 
 function formatearFecha(iso: string): string {
-  const [anio, mes, dia] = iso.split('-').map(Number);
+  const [, mes, dia] = iso.split('-').map(Number);
   const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
     'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
   return `${dia} de ${meses[mes - 1]}`;
