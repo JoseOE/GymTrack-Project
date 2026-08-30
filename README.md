@@ -9,7 +9,6 @@ El sistema integra una **plataforma web administrativa**, una **aplicación móv
 La **página web** será la herramienta principal para los dueños de los gimnasios, permitiéndoles contratar el servicio de GymTrack (modelo SaaS), gestionar a sus usuarios, registrar pagos, administrar membresías y diseñar rutinas de entrenamiento. Por su parte, los usuarios finales utilizarán la **aplicación móvil** para consultar el estado de su membresía, visualizar las rutinas asignadas y registrar su progreso, accediendo físicamente al gimnasio mediante una credencial RFID.
 
 El sistema busca centralizar los principales procesos del gimnasio en un único ecosistema tecnológico, conectando la administración web, el control de acceso IoT y la experiencia deportiva móvil del usuario.
-
 ---
 
 ## 🚀 Ejecución y Pruebas Locales (Paso a Paso)
