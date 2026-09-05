@@ -29,6 +29,8 @@ El backend provee la API REST y sirve la página web (archivos estáticos HTML/C
    ```bash
    cd PaginaWeb
    ```
+
+   
 2. Ejecuta el proyecto con Maven (Spring Boot):
    * En Windows: `mvnw.cmd spring-boot:run`
    * En Mac/Linux: `./mvnw spring-boot:run`
