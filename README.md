@@ -2,13 +2,13 @@
 
 ## Descripción General
 
-**GymTrack** es un ecosistema tecnológico **B2B2C** diseñado para modernizar la administración y la experiencia de usuario en gimnasios locales.
+**GymTrack** es un ecosistema tecnológico **B2B2C** diseñado para modernizar la administración y la experiencia de usuario en gimnasios locales y medianos.
 
-El sistema integra una **aplicación móvil**, una plataforma backend y un **módulo físico IoT basado en tecnología RFID** para automatizar el control de acceso al gimnasio.
+El sistema integra una **plataforma web administrativa**, una **aplicación móvil**, servicios backend y un **módulo físico IoT basado en tecnología RFID** para automatizar el control de acceso al gimnasio.
 
-La plataforma permitirá a los administradores gestionar usuarios, membresías, pagos y rutinas de entrenamiento, mientras que los usuarios podrán consultar el estado de su membresía, acceder al gimnasio mediante una tarjeta, llavero o pulsera RFID, visualizar las rutinas asignadas y registrar su progreso.
+La **página web** será la herramienta principal para los dueños de los gimnasios, permitiéndoles contratar el servicio de GymTrack (modelo SaaS), gestionar a sus usuarios, registrar pagos, administrar membresías y diseñar rutinas de entrenamiento. Por su parte, los usuarios finales utilizarán la **aplicación móvil** para consultar el estado de su membresía, visualizar las rutinas asignadas y registrar su progreso, accediendo físicamente al gimnasio mediante una credencial RFID.
 
-El sistema busca centralizar los principales procesos del gimnasio en un único ecosistema tecnológico, conectando la administración, el control de acceso y la experiencia deportiva del usuario.
+El sistema busca centralizar los principales procesos del gimnasio en un único ecosistema tecnológico, conectando la administración web, el control de acceso IoT y la experiencia deportiva móvil del usuario.
 
 ---
 
@@ -19,314 +19,97 @@ Actualmente, muchos gimnasios medianos y locales presentan una desconexión entr
 Los administradores pueden depender de procesos manuales o sistemas independientes para:
 
 * Registrar clientes.
-* Controlar membresías.
-* Verificar pagos.
-* Controlar el acceso.
-* Distribuir rutinas.
-* Registrar información de los usuarios.
+* Controlar y cobrar membresías.
+* Verificar pagos en tiempo real.
+* Controlar el acceso físico.
+* Distribuir rutinas basadas en su equipamiento real.
 
 Esta situación puede generar problemas como:
 
-* Permitir el acceso a usuarios con membresías vencidas.
-* Dificultad para identificar rápidamente a los usuarios.
-* Uso de tarjetas físicas sin validación automatizada.
-* Registros manuales de acceso.
-* Rutinas en papel.
+* Permitir el acceso a usuarios con membresías vencidas, generando pérdidas económicas.
+* Dificultad para gestionar e identificar rápidamente a los usuarios.
+* Uso de tarjetas físicas sin validación automatizada en la nube.
+* Registros manuales de acceso (papel o Excel).
 * Falta de integración entre la membresía y el control de acceso.
-* Uso de aplicaciones genéricas que no consideran el equipamiento disponible en el gimnasio.
+* Uso de aplicaciones genéricas que no consideran el equipamiento disponible en el gimnasio específico.
 
 Por su parte, los usuarios pueden experimentar una experiencia fragmentada al depender de diferentes medios para acceder al gimnasio, consultar sus rutinas y registrar su progreso.
 
-GymTrack busca solucionar esta problemática mediante la integración de estos procesos en una sola plataforma.
+GymTrack busca solucionar esta problemática mediante la integración de estos procesos en una sola plataforma en la nube.
 
 ---
 
 # Objetivo General
 
-Desarrollar e implementar un **ecosistema tecnológico integral denominado GymTrack**, que combine una aplicación móvil, servicios backend y un dispositivo IoT basado en tecnología RFID para centralizar la gestión de membresías, automatizar el control de acceso físico mediante validación en tiempo real y permitir la distribución de rutinas de entrenamiento personalizadas, mejorando la administración del gimnasio y la experiencia del usuario final.
+Desarrollar e implementar un **ecosistema tecnológico integral denominado GymTrack**, que combine una plataforma web administrativa, una aplicación móvil, servicios backend y un dispositivo IoT basado en tecnología RFID para centralizar la gestión de membresías, automatizar el control de acceso físico mediante validación en tiempo real y permitir la distribución de rutinas de entrenamiento personalizadas, mejorando la administración del gimnasio y la experiencia del usuario final.
 
 ---
 
 # Objetivos Específicos
 
-1. Diseñar y desarrollar una aplicación móvil para la gestión de usuarios, membresías, rutinas y registros de entrenamiento.
+1. Diseñar y desarrollar una **plataforma web administrativa** para que los dueños de los gimnasios puedan contratar el servicio (SaaS), registrar su sucursal, dar de alta usuarios, gestionar membresías y crear rutinas.
 
-2. Implementar una base de datos y servicios backend que permitan centralizar y gestionar de forma segura la información de los gimnasios y sus usuarios.
+2. Diseñar y desarrollar una **aplicación móvil** para que los usuarios finales consulten su progreso, rutinas y estado de cuenta.
 
-3. Desarrollar un sistema de control de acceso IoT mediante ESP32 y tecnología RFID, capaz de validar en tiempo real el estado de la membresía de los usuarios.
+3. Implementar una base de datos y servicios backend (Supabase) que permitan centralizar y gestionar de forma segura la información de múltiples gimnasios bajo una arquitectura multi-tenant.
 
-4. Integrar la aplicación móvil, el backend y el dispositivo IoT mediante mecanismos de comunicación seguros, permitiendo automatizar el control de acceso y la gestión de información.
+4. Desarrollar un sistema de control de acceso IoT mediante ESP32 y tecnología RFID, capaz de validar en tiempo real el estado de la membresía de los usuarios.
 
-5. Evaluar el funcionamiento e impacto de GymTrack mediante una implementación piloto, utilizando indicadores relacionados con la automatización, administración y experiencia de los usuarios.
+5. Evaluar el funcionamiento e impacto de GymTrack mediante una implementación piloto, utilizando indicadores relacionados con la automatización, reducción de morosidad y experiencia de los usuarios.
 
 ---
 
 # 🧩 Componentes Principales
 
-GymTrack estará compuesto por tres componentes tecnológicos principales:
+GymTrack estará compuesto por cuatro componentes tecnológicos principales:
 
-```text
+```plaintext
                          GYMTRACK
                             │
-           ┌────────────────┼────────────────┐
-           │                │                │
-           ▼                ▼                ▼
-      Aplicación        Backend            IoT
-        Móvil         + Base de Datos   Control de Acceso
-           │                │                │
-           └────────────────┼────────────────┘
+      ┌─────────────┬───────┴────────┬─────────────┐
+      │             │                │             │
+      ▼             ▼                ▼             ▼
+  Plataforma    Aplicación        Backend         IoT
+     Web          Móvil       + Base de Datos  Control de
+ (Gimnasios)    (Usuarios)                     Acceso RFID
+      │             │                │             │
+      └─────────────┴───────┬────────┴─────────────┘
                             │
                             ▼
                          Gimnasio
 ```
 
-<<<<<<< HEAD
-This command moves the starter code to the `app-example` directory and creates a new `app` directory where development can begin.
-
-> ⚠️ Only use this command if you intentionally want to reset the starter project.
-
-## 🤖 Native Android project
-
-GymTrack initially uses Expo's managed workflow.
-
-Therefore, the project may not contain:
-
-```text
-android/
-ios/
-```
-
-during the initial development stage.
-
-When direct native development becomes necessary, the native projects can be generated with:
-
-```bash
-npx expo prebuild
-```
-
-> ⚠️ Do not run `expo prebuild` unless native Android or iOS configuration is required.
-
-## 📦 Installing packages
-
-When installing packages related to Expo or React Native, use:
-
-```bash
-npx expo install <package>
-```
-
-instead of manually selecting a version.
-
-For example:
-
-```bash
-npx expo install expo-camera
-```
-
-This helps install a version compatible with the current Expo SDK.
-
-## 🌿 Git workflow
-
-The project uses Git for version control.
-
-Recommended branch structure:
-
-```text
-main
-│
-└── develop
-    │
-    ├── feature/login
-    ├── feature/workout
-    ├── feature/timer
-    ├── feature/statistics
-    └── feature/bluetooth
-```
-
-Create a new feature branch:
-
-```bash
-git checkout -b feature/workout
-```
-
-Commit changes:
-
-```bash
-git add .
-git commit -m "feat: add workout screen"
-```
-
-Push the branch:
-
-```bash
-git push origin feature/workout
-```
-
-## 📝 Commit conventions
-
-GymTrack follows a Conventional Commits style.
-
-| Type       | Description                  |
-| ---------- | ---------------------------- |
-| `feat`     | New functionality            |
-| `fix`      | Bug fix                      |
-| `refactor` | Code restructuring           |
-| `style`    | Formatting or visual changes |
-| `docs`     | Documentation                |
-| `test`     | Tests                        |
-| `chore`    | Maintenance/configuration    |
-
-Examples:
-
-```text
-feat: add workout timer
-fix: correct rest time calculation
-refactor: reorganize workout services
-docs: update README
-```
-
-## 🗺️ Roadmap
-
-### Phase 1 — Project setup
-
-* [x] Create Expo project
-* [x] Configure React Native
-* [x] Configure TypeScript
-* [x] Configure Expo Router
-* [x] Configure Android environment
-* [ ] Define final architecture
-
-### Phase 2 — User interface
-
-* [ ] Home screen
-* [ ] Login
-* [ ] Registration
-* [ ] Profile
-* [ ] Dashboard
-* [ ] Workout screen
-* [ ] History
-* [ ] Progress
-
-### Phase 3 — Workout system
-
-* [ ] Exercise management
-* [ ] Sets and repetitions
-* [ ] Weight tracking
-* [ ] Workout timer
-* [ ] Effective time
-* [ ] Rest time
-* [ ] Workout summary
-
-### Phase 4 — Statistics
-
-* [ ] Workout history
-* [ ] Performance metrics
-* [ ] Charts
-* [ ] Progress analysis
-* [ ] Weekly statistics
-* [ ] Monthly statistics
-
-### Phase 5 — Wearables
-
-* [ ] Bluetooth communication
-* [ ] Smartwatch research
-* [ ] Sensor integration
-* [ ] Real-time data
-* [ ] Activity detection
-
-### Phase 6 — Backend
-
-* [ ] API
-* [ ] Database
-* [ ] Authentication
-* [ ] Cloud synchronization
-* [ ] Workout data storage
-
-## 🔐 Security
-
-Sensitive information must never be committed to the repository.
-
-Do not upload:
-
-```text
-.env
-API keys
-Access tokens
-Passwords
-Private credentials
-```
-
-Use environment variables for sensitive configuration.
-
-## 📚 Useful resources
-
-* [Expo documentation](https://docs.expo.dev/)
-* [Expo Router documentation](https://docs.expo.dev/router/introduction/)
-* [React Native documentation](https://reactnative.dev/docs/getting-started)
-* [React documentation](https://react.dev/)
-* [TypeScript documentation](https://www.typescriptlang.org/docs/)
-* [Android Studio documentation](https://developer.android.com/studio)
-* [Expo tutorial](https://docs.expo.dev/tutorial/introduction/)
-
-## 📌 Project status
-
-**Status:** 🚧 In development
-
-GymTrack is currently in the initial development stage. The project architecture and core application functionality are being established before implementing advanced workout analytics and wearable-device integration.
-
----
-
-## 🏋️ GymTrack
-
-**Train. Track. Analyze. Improve.**
-=======
----
-
-# 📱 1. Aplicación Móvil
-
-La aplicación móvil será desarrollada utilizando **React Native, Expo y TypeScript**.
-
-La aplicación contará principalmente con dos perfiles:
-
-## Administrador
-
-El administrador podrá:
-
-* Registrar usuarios.
-* Consultar usuarios.
-* Gestionar membresías.
-* Registrar pagos.
-* Consultar estados de cuenta.
-* Asignar rutinas.
-* Administrar ejercicios.
-* Consultar información de acceso.
-* Gestionar información del gimnasio.
-
-## Usuario
-
-El usuario podrá:
+💻 1. Plataforma Web (Administración)
+La plataforma web es el núcleo de administración comercial y operativa del proyecto. Aquí es donde los dueños de gimnasios interactúan con el ecosistema.
+
+El dueño o Administrador podrá:
+
+* Contratar el servicio GymTrack (Suscripción SaaS).
+* Configurar la información de su gimnasio (equipamiento disponible).
+* Agregar y registrar nuevos usuarios/clientes.
+* Gestionar planes y membresías.
+* Registrar pagos de mensualidades.
+* Consultar estados de cuenta y usuarios morosos.
+* Asignar credenciales RFID a los usuarios.
+* Crear y administrar ejercicios y rutinas exclusivas de su gimnasio.
+* Consultar el historial de accesos registrados por el dispositivo IoT.
+
+📱 2. Aplicación Móvil
+La aplicación móvil será desarrollada utilizando React Native, Expo y TypeScript. Estará enfocada principalmente en el cliente final.
+
+El Usuario podrá:
 
 * Iniciar sesión.
 * Consultar su perfil.
-* Consultar el estado de su membresía.
-* Consultar la fecha de vencimiento.
-* Consultar sus rutinas.
-* Registrar entrenamientos.
-* Registrar series.
-* Registrar repeticiones.
-* Registrar peso.
-* Consultar récords personales.
-* Consultar su progreso.
+* Consultar el estado de su membresía y la fecha de vencimiento.
+* Consultar las rutinas creadas por su gimnasio (adaptadas al equipo real).
+* Registrar entrenamientos (series, repeticiones, peso).
+* Consultar récords personales y progreso a lo largo del tiempo.
 * Consultar su historial de entrenamientos.
+* Su acceso físico a las instalaciones se realizará mediante una credencial RFID física.
 
-El usuario **no necesitará generar códigos QR para acceder al gimnasio**.
-
-Su acceso se realizará mediante una credencial física RFID.
-
----
-
-# 🔑 2. Sistema de identificación RFID
-
-El sistema utilizará tecnología **RFID (Radio Frequency Identification)** para identificar a los usuarios.
+🔑 3. Sistema de identificación RFID
+El sistema utilizará tecnología RFID (Radio Frequency Identification) para identificar a los usuarios en la entrada.
 
 La credencial podrá tomar diferentes formas:
 
@@ -337,7 +120,7 @@ La credencial podrá tomar diferentes formas:
 
 El usuario únicamente deberá acercar su credencial al lector instalado en la entrada.
 
-```text
+```plaintext
 Usuario
    │
    ▼
@@ -350,92 +133,68 @@ Lector RFID
 ESP32
    │
    ▼
-Backend
-   │
-   ▼
-Validación de membresía
+Backend (Validación de membresía)
 ```
 
----
-
-# 🚪 3. Control de acceso IoT
-
-El módulo IoT estará instalado físicamente en la entrada del gimnasio.
+🚪 4. Control de acceso IoT
+El módulo IoT estará instalado físicamente en la entrada del gimnasio, conectado a un torniquete o puerta.
 
 Su función será:
 
-1. Detectar una credencial RFID.
-2. Obtener el identificador asociado.
-3. Enviar la solicitud de validación.
-4. Consultar el backend.
-5. Determinar el estado de la membresía.
-6. Autorizar o rechazar el acceso.
-7. Accionar el mecanismo de apertura cuando corresponda.
-8. Registrar el acceso.
+* Detectar una credencial RFID.
+* Obtener el identificador asociado.
+* Enviar la solicitud de validación segura.
+* Consultar el backend (Supabase) para verificar el estado de pago.
+* Autorizar o rechazar el acceso.
+* Accionar el mecanismo de apertura (relé) cuando la membresía esté activa.
+* Registrar el acceso en la base de datos.
 
 El flujo será:
 
-```text
-              Usuario
-                 │
-                 ▼
-          Acerca RFID
-                 │
-                 ▼
-           Lector RFID
-                 │
-                 ▼
-               ESP32
-                 │
-                 ▼
-          Solicitud segura
-                 │
-                 ▼
-             Backend
-                 │
-                 ▼
-       ¿Membresía activa?
-           │           │
+```plaintext
+               Usuario
+                  │
+                  ▼
+            Acerca RFID
+                  │
+                  ▼
+             Lector RFID
+                  │
+                  ▼
+                ESP32
+                  │
+                  ▼
+           Solicitud segura
+                  │
+                  ▼
+         Backend / Supabase
+                  │
+                  ▼
+          ¿Membresía activa?
+            │            │
           Sí           No
-           │           │
-           ▼           ▼
-     Abrir acceso   Denegar acceso
-           │           │
-           └─────┬─────┘
-                 ▼
-          Registrar evento
+            │            │
+            ▼            ▼
+      Abrir acceso   Denegar acceso
+            │            │
+            └─────┬─────┘
+                  ▼
+            Registrar evento
 ```
 
----
+🗄️ 5. Backend y Base de Datos
+GymTrack utilizará Supabase como plataforma backend en la nube y PostgreSQL como sistema gestor de base de datos.
 
-# 🗄️ 4. Backend y Base de Datos
-
-GymTrack utilizará **Supabase** como plataforma backend y **PostgreSQL** como sistema gestor de base de datos.
-
-La base de datos permitirá almacenar información relacionada con:
-
-* Gimnasios.
-* Administradores.
-* Usuarios.
-* Credenciales RFID.
-* Membresías.
-* Pagos.
-* Rutinas.
-* Ejercicios.
-* Entrenamientos.
-* Series.
-* Repeticiones.
-* Récords personales.
-* Registros de acceso.
+La base de datos centralizada permitirá que tanto la plataforma web como la app móvil y el dispositivo IoT consuman y actualicen la misma información en tiempo real.
 
 Una estructura conceptual sería:
 
-```text
+```plaintext
 Gimnasio
    │
-   ├── Administradores
+   ├── Administradores (Web)
    │
-   ├── Usuarios
+   ├── Usuarios (App Móvil)
    │     │
    │     ├── Membresía
    │     ├── Credencial RFID
@@ -447,39 +206,33 @@ Gimnasio
    └── Registros de acceso
 ```
 
----
+🔐 Seguridad (Aislamiento de Datos)
+Dado que la plataforma web permitirá a múltiples gimnasios contratar el servicio, la información deberá mantenerse estrictamente aislada.
 
-# 🔐 Seguridad
+Para ello se utilizará Row Level Security (RLS) en PostgreSQL mediante Supabase.
 
-La información deberá mantenerse aislada entre los diferentes gimnasios.
-
-Para ello se contempla utilizar **Row Level Security (RLS)** en PostgreSQL mediante Supabase.
-
-```text
-                    Supabase
-                       │
-           ┌───────────┼───────────┐
-           │           │           │
-           ▼           ▼           ▼
-       Gimnasio A  Gimnasio B  Gimnasio C
-           │           │           │
-        Usuarios    Usuarios    Usuarios
-           │           │           │
-           ▼           ▼           ▼
-         Datos       Datos       Datos
+```plaintext
+                    Supabase + RLS
+                         │
+           ┌─────────────┼─────────────┐
+           │             │             │
+           ▼             ▼             ▼
+       Gimnasio A    Gimnasio B    Gimnasio C
+           │             │             │
+        Usuarios      Usuarios      Usuarios
+           │             │             │
+           ▼             ▼             ▼
+         Datos         Datos         Datos
 ```
 
-Cada gimnasio deberá tener acceso únicamente a la información que le corresponde.
+Cada administrador de gimnasio, desde su panel web, tendrá acceso únicamente a la información de sus propios clientes.
 
----
-
-# 🌐 Comunicación IoT
-
-La comunicación entre el dispositivo IoT y los servicios backend podrá utilizar protocolos ligeros orientados a IoT.
+🌐 Comunicación IoT
+La comunicación entre el dispositivo IoT y los servicios backend utilizará protocolos ligeros orientados a IoT.
 
 Se contempla el uso de:
 
-```text
+```plaintext
 ESP32
   │
   ▼
@@ -489,194 +242,26 @@ Wi-Fi
 MQTT
   │
   ▼
-TLS
+TLS (Cifrado)
   │
   ▼
-Backend
+Backend (Supabase)
 ```
 
 MQTT permitirá establecer una comunicación eficiente entre el dispositivo y los servicios del sistema, mientras que TLS proporcionará cifrado durante la transmisión.
 
----
+🎓 Aplicación académica por materia
+GymTrack es un proyecto multidisciplinario que permitirá integrar los conocimientos de diferentes asignaturas de la carrera de Ing. en TICs.
 
-# 🔄 Flujo completo de acceso
+💼 Negocios Electrónicos
+Aplicación en GymTrack
+GymTrack operará bajo un modelo SaaS (Software as a Service) con un esquema B2B2C. La plataforma web es el canal principal de este negocio.
 
-El funcionamiento completo del sistema será:
-
-```text
-┌─────────────────────────────┐
-│ Usuario                     │
-│ Tiene membresía activa      │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Credencial RFID             │
-│ Tarjeta / llavero / pulsera │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Lector RFID                 │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ ESP32                       │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Comunicación segura         │
-│ MQTT + TLS                  │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Backend / Supabase          │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│ Validar membresía           │
-└──────────────┬──────────────┘
-               │
-        ┌──────┴──────┐
-        │             │
-        ▼             ▼
-     ACTIVA        VENCIDA
-        │             │
-        ▼             ▼
-   Autorizar       Rechazar
-     acceso          acceso
-        │             │
-        ▼             ▼
-   Abrir puerta    No abrir
-        │             │
-        └──────┬──────┘
-               ▼
-      Registrar evento
-```
-
----
-
-# 🏋️ Sistema de entrenamiento
-
-Además del control de acceso, GymTrack permitirá gestionar el entrenamiento de los usuarios.
-
-El administrador podrá crear o asignar rutinas considerando las características del gimnasio.
-
-Por ejemplo:
-
-```text
-Gimnasio
-   │
-   ├── Equipamiento disponible
-   │
-   ├── Ejercicios
-   │
-   └── Rutinas
-          │
-          ▼
-       Usuario
-```
-
-Esto permitirá evitar que se asignen rutinas que dependan de equipamiento inexistente en el gimnasio.
-
----
-
-# ⏱️ Registro del entrenamiento
-
-El usuario podrá iniciar una sesión desde la aplicación.
-
-Durante la sesión se podrán registrar:
-
-* Ejercicio.
-* Series.
-* Repeticiones.
-* Peso.
-* Tiempo total.
-* Tiempo efectivo.
-* Tiempo de descanso.
-* Descanso promedio.
-* Récords personales.
-
-Conceptualmente:
-
-```text
-Entrenamiento
-     │
-     ├── Tiempo total
-     │
-     ├── Tiempo efectivo
-     │
-     ├── Tiempo de descanso
-     │
-     ├── Ejercicios
-     │      ├── Series
-     │      ├── Repeticiones
-     │      └── Peso
-     │
-     └── Estadísticas
-```
-
----
-
-# 🎓 Aplicación académica por materia
-
-GymTrack es un proyecto multidisciplinario que permitirá integrar los conocimientos de diferentes asignaturas.
-
-Cada materia abordará una parte específica del ecosistema.
-
----
-
-## 📱 Desarrollo de Aplicaciones Móviles
-
-### Aplicación en GymTrack
-
-Esta asignatura se aplicará principalmente en el desarrollo de la aplicación móvil.
-
-Se utilizarán:
-
-* React Native.
-* Expo.
-* TypeScript.
-* Expo Router.
-
-### Funcionalidades
-
-**Administrador:**
-
-* Login.
-* Gestión de usuarios.
-* Gestión de membresías.
-* Gestión de pagos.
-* Gestión de rutinas.
-
-**Usuario:**
-
-* Login.
-* Perfil.
-* Estado de membresía.
-* Consulta de rutinas.
-* Registro de entrenamientos.
-* Historial.
-* Estadísticas.
-
-### Resultado esperado
-
-Una aplicación móvil funcional que sirva como interfaz principal para administradores y usuarios.
-
----
-
-# 💼 Negocios Electrónicos
-
-### Aplicación en GymTrack
-
-GymTrack será planteado bajo un modelo **B2B2C**.
-
-```text
-                 GymTrack
+```plaintext
+                 GymTrack (SaaS)
+                    │
+                    ▼
+          Página Web (Contratación B2B)
                     │
                     ▼
                  Gimnasio
@@ -684,473 +269,115 @@ GymTrack será planteado bajo un modelo **B2B2C**.
              ┌──────┴──────┐
              │             │
              ▼             ▼
-       Administrador    Usuario
+      Administrador      App Móvil
              │             │
              └──────┬──────┘
                     ▼
-              Cliente final
+            Cliente Final (B2C)
 ```
 
-### Aplicación de la materia
-
+Aplicación de la materia
 Se analizarán:
 
-* Modelo de negocio.
-* Propuesta de valor.
-* Segmento de mercado.
-* Clientes objetivo.
-* Canales digitales.
-* Relación con clientes.
-* Servicios digitales.
-* Transformación digital.
-* Viabilidad comercial.
-
-### Resultado esperado
-
-Definir la propuesta de valor y modelo comercial de GymTrack como solución tecnológica para gimnasios locales.
-
----
-
-# 🌐 Internet de las Cosas (IoT)
-
-### Aplicación en GymTrack
-
-Esta asignatura se aplicará directamente en el desarrollo del sistema físico de control de acceso.
-
-Se trabajará con:
-
-* ESP32.
-* RFID.
-* Lectores.
-* Comunicación Wi-Fi.
-* MQTT.
-* Actuadores.
-* Automatización.
-
-### Flujo
-
-```text
-RFID
- │
- ▼
-Lector
- │
- ▼
-ESP32
- │
- ▼
-Wi-Fi
- │
- ▼
-MQTT
- │
- ▼
-Backend
- │
- ▼
-Respuesta
- │
- ├── Autorizar
- │
- └── Rechazar
-```
-
-### Resultado esperado
-
-Desarrollar un prototipo IoT funcional capaz de identificar una credencial RFID y consultar la autorización de acceso.
-
----
-
-# 🌐 Administración y Seguridad de Redes
-
-### Aplicación en GymTrack
-
-Esta materia se aplicará en el diseño y protección de las comunicaciones entre los diferentes componentes.
-
-```text
-Aplicación
-    │
-    ▼
- Internet
-    │
-    ▼
- Backend
-    │
-    ▼
- MQTT + TLS
-    │
-    ▼
- ESP32
-```
-
-### Aspectos a trabajar
-
-* Redes TCP/IP.
-* Comunicación cliente-servidor.
-* Wi-Fi.
-* MQTT.
-* TLS.
-* Autenticación.
-* Control de acceso.
-* Seguridad de servicios.
-* Segmentación lógica.
-* Protección de credenciales.
-* Seguridad de la información.
-
-También se analizará la implementación de **RLS** para evitar que un gimnasio pueda consultar información perteneciente a otro.
-
-### Resultado esperado
-
-Diseñar una infraestructura de comunicación segura para la aplicación, backend y dispositivo IoT.
-
----
-
-# 🔬 Taller de Investigación II
-
-### Aplicación en GymTrack
-
-Esta asignatura se utilizará para investigar y evaluar el impacto de la solución propuesta.
-
-El objetivo será determinar si la implementación de GymTrack puede mejorar los procesos administrativos y la experiencia del usuario.
-
-### Variables e indicadores
-
-Se podrán analizar:
-
-* Tiempo de validación del acceso.
-* Número de accesos automatizados.
-* Cantidad de membresías vencidas detectadas.
-* Reducción de procesos manuales.
-* Uso de rutinas digitales.
-* Frecuencia de utilización de la aplicación.
-* Satisfacción de los usuarios.
-* Percepción del servicio.
-* Retención de clientes.
-
-### Metodología
-
-```text
-Problema
-   │
-   ▼
-Investigación
-   │
-   ▼
-Diseño de solución
-   │
-   ▼
-Desarrollo
-   │
-   ▼
-Implementación piloto
-   │
-   ▼
-Recolección de datos
-   │
-   ▼
-Análisis
-   │
-   ▼
-Resultados
-   │
-   ▼
-Conclusiones
-```
-
-### Resultado esperado
-
-Obtener evidencia que permita determinar el impacto de GymTrack en la administración y experiencia de los usuarios.
-
----
-
-# 🏗️ Arquitectura multidisciplinaria
-
-La arquitectura completa de GymTrack será:
-
-```text
-                         ┌───────────────────┐
-                         │     GymTrack      │
-                         └─────────┬─────────┘
-                                   │
-                 ┌─────────────────┼─────────────────┐
-                 │                 │                 │
-                 ▼                 ▼                 ▼
-          Aplicación móvil      Backend             IoT
-          React Native          Supabase            ESP32
-          + Expo                PostgreSQL          + RFID
-                 │                 │                 │
-                 │                 │                 │
-                 └─────────────────┼─────────────────┘
-                                   │
-                                   ▼
-                            Comunicación
-                              MQTT + TLS
-                                   │
-                                   ▼
-                              Validación
-                                   │
-                          ┌────────┴────────┐
-                          │                 │
-                          ▼                 ▼
-                       Usuario           Gimnasio
-```
-
----
-
-# 🛠️ Stack tecnológico
-
-## Aplicación móvil
-
-| Tecnología   | Uso                        |
-| ------------ | -------------------------- |
-| React Native | Desarrollo multiplataforma |
-| Expo         | Framework de desarrollo    |
-| React        | Interfaz de usuario        |
-| TypeScript   | Tipado estático            |
-| Expo Router  | Navegación                 |
-
-## Backend
-
-| Tecnología | Uso                            |
-| ---------- | ------------------------------ |
-| Supabase   | Backend                        |
-| PostgreSQL | Base de datos                  |
-| RLS        | Seguridad de datos             |
-| API        | Comunicación con la aplicación |
-
-## IoT
-
-| Tecnología | Uso                        |
-| ---------- | -------------------------- |
-| ESP32      | Microcontrolador           |
-| RFID       | Identificación de usuarios |
-| Wi-Fi      | Conectividad               |
-| MQTT       | Comunicación IoT           |
-| TLS        | Comunicación segura        |
-| Actuador   | Apertura de acceso         |
-
----
-
-# 📁 Estructura propuesta del proyecto
-
-```text
-GymTrack/
-│
-├── app/
-│   ├── _layout.tsx
-│   │
-│   ├── (auth)/
-│   │   ├── _layout.tsx
-│   │   ├── login.tsx
-│   │   └── register.tsx
-│   │
-│   └── (main)/
-│       ├── _layout.tsx
-│       ├── index.tsx
-│       │
-│       ├── workout/
-│       │   ├── index.tsx
-│       │   ├── active.tsx
-│       │   └── summary.tsx
-│       │
-│       ├── membership.tsx
-│       ├── access.tsx
-│       ├── history.tsx
-│       ├── progress.tsx
-│       └── profile.tsx
-│
-├── components/
-│   ├── ui/
-│   ├── workout/
-│   ├── membership/
-│   ├── access/
-│   ├── charts/
-│   └── common/
-│
-├── hooks/
-│   ├── useWorkout.ts
-│   ├── useTimer.ts
-│   ├── useMembership.ts
-│   └── ...
-│
-├── services/
-│   ├── api/
-│   ├── supabase/
-│   ├── mqtt/
-│   ├── bluetooth/
-│   └── sensors/
-│
-├── types/
-│   ├── user.ts
-│   ├── gym.ts
-│   ├── membership.ts
-│   ├── workout.ts
-│   ├── access.ts
-│   └── rfid.ts
-│
-├── constants/
-│   ├── colors.ts
-│   └── config.ts
-│
-├── utils/
-│   ├── time.ts
-│   ├── calculations.ts
-│   └── validation.ts
-│
-├── assets/
-│   ├── images/
-│   └── icons/
-│
-├── app.json
-├── package.json
-├── tsconfig.json
-├── eslint.config.js
-├── .gitignore
-└── README.md
-```
-
----
-
-# 🔐 Consideraciones de seguridad RFID
-
-La tarjeta RFID debe considerarse principalmente como un **identificador**, no como la única capa de seguridad.
-
-El sistema deberá evitar depender únicamente del UID de una tarjeta si el hardware utilizado permite una alternativa más segura.
-
-El flujo recomendado será:
-
-```text
-Credencial RFID
-      │
-      ▼
-Identificador
-      │
-      ▼
-ESP32
-      │
-      ▼
-Backend
-      │
-      ▼
-¿Credencial válida?
-      │
-      ▼
-¿Membresía activa?
-      │
-      ▼
-¿Usuario autorizado?
-      │
-      ▼
-Autorizar / Rechazar
-```
-
-De esta forma, una credencial no determina por sí misma si una persona puede ingresar; el **backend mantiene la decisión de autorización**.
-
----
-
-# 🗺️ Roadmap
-
-## Fase 1 — Planeación
-
-* [x] Definir problemática.
-* [x] Definir objetivo general.
-* [x] Definir propuesta de solución.
-* [x] Definir modelo B2B2C.
-* [x] Definir arquitectura multidisciplinaria.
-* [x] Seleccionar RFID como tecnología de acceso.
-* [ ] Diseñar arquitectura definitiva.
-* [ ] Diseñar modelo de datos.
-
-## Fase 2 — Aplicación móvil
-
-* [x] Crear proyecto Expo.
-* [x] Configurar React Native.
-* [x] Configurar TypeScript.
-* [x] Configurar Expo Router.
-* [ ] Diseñar interfaz.
-* [ ] Login.
-* [ ] Registro.
-* [ ] Perfil.
-* [ ] Dashboard.
-* [ ] Gestión de membresías.
-* [ ] Gestión de rutinas.
-* [ ] Historial.
-* [ ] Estadísticas.
-
-## Fase 3 — Backend
-
-* [ ] Configurar Supabase.
-* [ ] Diseñar PostgreSQL.
-* [ ] Crear tablas.
-* [ ] Crear relaciones.
-* [ ] Implementar autenticación.
-* [ ] Implementar RLS.
-* [ ] Crear servicios/API.
-* [ ] Gestionar membresías.
-* [ ] Gestionar pagos.
-* [ ] Gestionar credenciales RFID.
-
-## Fase 4 — IoT
-
-* [ ] Seleccionar lector RFID.
-* [ ] Seleccionar credenciales RFID.
-* [ ] Configurar ESP32.
-* [ ] Leer credenciales.
-* [ ] Conectar ESP32 a Wi-Fi.
-* [ ] Implementar comunicación MQTT.
-* [ ] Implementar TLS.
-* [ ] Implementar validación.
-* [ ] Integrar actuador.
-* [ ] Realizar pruebas.
-
-## Fase 5 — Integración
-
-* [ ] Integrar aplicación y backend.
-* [ ] Integrar backend y ESP32.
-* [ ] Integrar RFID.
-* [ ] Implementar validación de membresías.
-* [ ] Implementar registro de accesos.
-* [ ] Realizar pruebas integrales.
-
-## Fase 6 — Investigación
-
-* [ ] Definir metodología.
-* [ ] Definir variables.
-* [ ] Definir indicadores.
-* [ ] Diseñar instrumentos de evaluación.
-* [ ] Realizar prueba piloto.
-* [ ] Recopilar datos.
-* [ ] Analizar resultados.
-* [ ] Evaluar impacto.
-* [ ] Generar conclusiones.
-
----
-
-# 📊 Indicadores de impacto
-
-| Indicador                      | Propósito                        |
-| ------------------------------ | -------------------------------- |
-| Tiempo de validación           | Medir rapidez del acceso         |
-| Accesos automatizados          | Medir funcionamiento del sistema |
-| Membresías vencidas detectadas | Evaluar control administrativo   |
-| Accesos rechazados             | Evaluar validación               |
-| Procesos manuales reducidos    | Medir automatización             |
-| Uso de rutinas digitales       | Medir adopción                   |
-| Uso de la aplicación           | Medir participación              |
-| Satisfacción del usuario       | Evaluar experiencia              |
-| Retención de clientes          | Evaluar impacto comercial        |
-
----
-
-# 📌 Estado del proyecto
-
-**Estado:** 🚧 En desarrollo
-
-GymTrack se encuentra actualmente en la etapa de **planeación, definición de arquitectura y configuración del entorno de desarrollo**.
+* Venta de suscripciones web a dueños de gimnasios.
+* Implementación de hardware como cobro adicional.
+* Reducción de la morosidad a través de la automatización.
+* Propuesta de valor B2B y B2C.
+* Canales de adquisición digitales.
+
+📱 Desarrollo de Aplicaciones Móviles
+Desarrollo de la aplicación nativa (React Native + Expo) enfocada en el usuario final (B2C) para la visualización de rutinas, historial y métricas de progreso.
+
+🌐 Internet de las Cosas (IoT)
+Desarrollo del nodo sensor/actuador (ESP32 + Lector RFID + Relé) instalado físicamente en los gimnasios para validar en tiempo real los pagos registrados en la web y controlar el torniquete de acceso.
+
+🌐 Administración y Seguridad de Redes
+Implementación de la arquitectura cliente-servidor (Web, App, IoT) hacia la nube (Supabase). Diseño de políticas de Row Level Security (RLS) para arquitectura Multi-tenant, y configuración de protocolos MQTT con cifrado TLS para el acceso físico.
+
+🔬 Taller de Investigación II
+Investigación aplicada para medir el impacto comercial y operativo: "¿Cómo la implementación del ecosistema GymTrack reduce la morosidad, mejora el control de accesos y aumenta la retención de clientes en comparación con procesos manuales?".
+
+🛠️ Stack tecnológico
+
+Plataforma Web (SaaS)
+* Tecnología: React / Next
+* Uso: Framework web para el dashboard
+* Tecnología: Tailwind CSS
+* Uso: Estilos e interfaces
+
+Aplicación Móvil
+* Tecnología: React Native
+* Uso: Desarrollo multiplataforma
+* Tecnología: Expo
+* Uso: Framework de desarrollo
+* Tecnología: TypeScript
+* Uso: Tipado estático
+
+Backend y Seguridad
+* Tecnología: Supabase
+* Uso: Backend en la nube (BaaS)
+* Tecnología: PostgreSQL
+* Uso: Base de datos Multi-tenant
+* Tecnología: RLS
+* Uso: Seguridad y aislamiento (B2B)
+
+IoT
+* Tecnología: ESP32
+* Uso: Microcontrolador
+* Tecnología: RFID
+* Uso: Identificación física
+* Tecnología: MQTT + TLS
+* Uso: Comunicación remota segura
+
+🗺️ Roadmap
+
+Fase 1 — Planeación
+- [x] Definir problemática.
+- [x] Definir objetivo general.
+- [x] Definir modelo B2B2C (SaaS).
+- [x] Diseñar arquitectura multidisciplinaria.
+
+Fase 2 — Plataforma Web & Backend (Negocios Electrónicos)
+- [ ] Configurar Supabase y PostgreSQL.
+- [ ] Crear esquema de BD y políticas RLS para múltiples gimnasios.
+- [ ] Desarrollar página web administrativa.
+- [ ] Implementar gestión de usuarios, membresías y pagos desde la web.
+
+Fase 3 — Aplicación Móvil (Usuarios)
+- [x] Crear proyecto Expo.
+- [ ] Diseñar interfaz de usuario final.
+- [ ] Visualización de rutinas y estado de cuenta.
+- [ ] Historial y récords personales.
+
+Fase 4 — IoT (Control de Acceso)
+- [ ] Configurar ESP32 y Lector RFID.
+- [ ] Implementar comunicación MQTT segura con Supabase.
+- [ ] Validar membresías y accionar relés de apertura.
+
+Fase 5 — Integración e Investigación
+- [ ] Pruebas del ecosistema completo (Web -> DB -> IoT -> App).
+- [ ] Instalación piloto en un gimnasio real.
+- [ ] Evaluación de impacto (reducción de morosidad).
+
+📊 Indicadores de impacto
+* Tiempo de validación: Medir rapidez del acceso
+* Accesos automatizados: Medir funcionamiento del sistema
+* Membresías vencidas detectadas: Evaluar control administrativo
+* Accesos rechazados: Evaluar validación
+* Procesos manuales reducidos: Medir automatización
+* Uso de rutinas digitales: Medir adopción
+* Uso de la aplicación: Medir participación
+* Satisfacción del usuario: Evaluar experiencia
+* Retención de clientes: Evaluar impacto comercial
+
+📌 Estado del proyecto
+Estado: 🚧 En desarrollo
+
+GymTrack se encuentra actualmente en la etapa de planeación, definición de arquitectura y configuración del entorno de desarrollo.
 
 El proyecto integra diferentes áreas:
 
-```text
+```plaintext
         Desarrollo de Apps
                 │
                 ▼
@@ -1161,64 +388,40 @@ Negocios ─── GymTrack ─── IoT
                 │
                 │
                 ▼
-         Backend + BD
+         Backend + BD (Web)
                 │
                 ▼
         Redes y Seguridad
                 │
                 ▼
-        Investigación
+          Investigación
 ```
 
----
+📚 Recursos
+* Expo
+* React Native
+* TypeScript
+* Supabase
+* PostgreSQL
+* MQTT
+* ESP32
 
-# 📚 Recursos
+👥 Proyecto académico
+* Proyecto: GymTrack
+* Modelo de negocio: B2B2C (SaaS)
+* Tipo: Ecosistema tecnológico para gimnasios locales
+* Plataforma Administrativa: Aplicación Web (React)
+* Aplicación Usuarios: React Native + Expo
+* Backend: Supabase + PostgreSQL
+* Control de acceso: RFID + ESP32
+* Comunicación IoT: MQTT + TLS
 
-* [Expo](https://expo.dev)
-* [Documentación de Expo](https://docs.expo.dev/)
-* [Expo Router](https://docs.expo.dev/router/introduction/)
-* [React Native](https://reactnative.dev/)
-* [React](https://react.dev/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [Supabase](https://supabase.com/)
-* [PostgreSQL](https://www.postgresql.org/)
-* [MQTT](https://mqtt.org/)
-* [ESP32](https://www.espressif.com/en/products/socs/esp32)
-* [Android Studio](https://developer.android.com/studio)
-
----
-
-# 👥 Proyecto académico
-
-**Proyecto:** GymTrack
-
-**Modelo de negocio:** B2B2C
-
-**Tipo:** Ecosistema tecnológico para gimnasios locales
-
-**Aplicación:** React Native + Expo
-
-**Backend:** Supabase + PostgreSQL
-
-**Control de acceso:** RFID + ESP32
-
-**Comunicación IoT:** MQTT + TLS
-
-**Plataforma inicial:** Android
-
-**Áreas académicas involucradas:**
-
+Áreas académicas involucradas:
 * Desarrollo de Aplicaciones Móviles
 * Negocios Electrónicos
 * Internet de las Cosas
 * Administración y Seguridad de Redes
 * Taller de Investigación II
 
----
-
-# 🏋️ GymTrack
-
-> **Administra. Identifica. Accede. Entrena. Analiza. Mejora.**
-
-GymTrack busca transformar la operación tradicional de los gimnasios mediante la integración de **aplicaciones móviles, servicios en la nube, identificación RFID, dispositivos IoT, redes seguras y análisis de información**, creando un ecosistema tecnológico que conecte al gimnasio con sus usuarios.
->>>>>>> d16d7f81d0e246bfdac37d716295d61a66c1ce78
+🏋️ GymTrack
+Administra. Identifica. Accede. Entrena. Analiza. Mejora.
