@@ -1,0 +1,125 @@
+/* Globales */
+html {
+    scroll-behavior: smooth;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Colores de marca */
+.text-primary {
+    color: #ff5722 !important; /* Naranja deportivo */
+}
+.bg-primary {
+    background-color: #ff5722 !important;
+}
+.btn-primary, .btn-outline-primary:hover {
+    background-color: #ff5722;
+    border-color: #ff5722;
+    color: #fff;
+}
+.btn-outline-primary {
+    border-color: #ff5722;
+    color: #ff5722;
+}
+
+/* Slider Hero */
+.hero-slide {
+    height: 70vh;
+    min-height: 500px;
+    background-size: cover;
+    background-position: center;
+}
+.slide-1 {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop');
+}
+.slide-2 {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1470&auto=format&fit=crop');
+}
+.slide-3 {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1470&auto=format&fit=crop');
+}
+.shadow-text {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+/* Animaciones */
+.animate-fade-in-up {
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+    transform: translateY(30px);
+}
+.delay-1 {
+    animation-delay: 0.3s;
+}
+.delay-2 {
+    animation-delay: 0.6s;
+}
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efectos de Scroll usando Intersection Observer */
+.scroll-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.scroll-animate.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Tarjetas de Servicios */
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    border-radius: 12px;
+}
+.service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+}
+.service-icon {
+    font-size: 3rem;
+    color: #ff5722;
+}
+
+/* Contenedor del Mapa */
+.map-wrapper {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+}
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Panel de ruta (Leaflet Routing Machine) */
+.leaflet-routing-container {
+    background: rgba(255,255,255,0.95);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Marcador del usuario */
+.user-marker {
+    background: none;
+    border: none;
+}
+
+/* Footer links */
+footer a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+footer a:hover {
+    color: #ff5722 !important;
+}

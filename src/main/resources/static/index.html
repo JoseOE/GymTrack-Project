@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <!-- Configuración básica -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Información de la página -->
+    <meta name="description" content="GymTrack - Ecosistema tecnológico B2B2C para gimnasios">
+    <meta name="author" content="GymTrack">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Leaflet CSS (Para el mapa) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <!-- Leaflet Routing Machine CSS (Para la ruta) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
+    <!-- BoxIcons para iconos -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- Título de la página -->
+    <title>GymTrack | Innovación en tu Gimnasio</title>
+
+    <!-- Ícono de la pestaña -->
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
+</head>
+<body>
+
+    <!-- ========================================
+         MENÚ DE NAVEGACIÓN (Secciones del proyecto)
+    ========================================= -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">
+                <i class='bx bx-dumbbell'></i> GymTrack
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#quienes-somos">¿Quiénes Somos?</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicios">Catálogo de Servicios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================
+         SLIDER PRINCIPAL (Descripción del proyecto)
+    ========================================= -->
+    <header>
+        <div id="sliderPrincipal" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <!-- INDICADORES -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+
+            <!-- CONTENIDO DEL SLIDER -->
+            <div class="carousel-inner">
+                <!-- SLIDE 1 -->
+                <div class="carousel-item active hero-slide slide-1" data-bs-interval="5000">
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                        <h1 class="display-3 fw-bold text-white shadow-text animate-fade-in-up">Bienvenido a GymTrack</h1>
+                        <p class="lead shadow-text animate-fade-in-up delay-1">El ecosistema B2B2C que revoluciona la administración de tu gimnasio.</p>
+                        <a href="#quienes-somos" class="btn btn-primary btn-lg mt-3 rounded-pill px-4 animate-fade-in-up delay-2">Conocer más</a>
+                    </div>
+                </div>
+
+                <!-- SLIDE 2 -->
+                <div class="carousel-item hero-slide slide-2" data-bs-interval="5000">
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                        <h1 class="display-3 fw-bold text-white shadow-text">Control IoT y Nube</h1>
+                        <p class="lead shadow-text">Tecnología RFID y bases de datos escalables para tu administración.</p>
+                        <a href="#servicios" class="btn btn-light btn-lg mt-3 rounded-pill px-4">Ver Servicios</a>
+                    </div>
+                </div>
+
+                <!-- SLIDE 3 -->
+                <div class="carousel-item hero-slide slide-3" data-bs-interval="5000">
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
+                        <h1 class="display-3 fw-bold text-white shadow-text">Membresías Inteligentes</h1>
+                        <p class="lead shadow-text">Gestiona membresías, pagos y accesos desde un solo lugar.</p>
+                        <a href="#servicios" class="btn btn-danger btn-lg mt-3 rounded-pill px-4">Explorar Planes</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BOTÓN ANTERIOR -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+
+            <!-- BOTÓN SIGUIENTE -->
+            <button class="carousel-control-next" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ========================================
+         ¿QUIÉNES SOMOS?
+    ========================================= -->
+    <section id="quienes-somos" class="py-5 bg-light scroll-animate">
+        <div class="container my-5">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" class="img-fluid rounded shadow" alt="Interior de gimnasio">
+                </div>
+                <div class="col-md-6 px-4">
+                    <h2 class="fw-bold mb-3 text-primary">¿Quiénes Somos?</h2>
+                    <p class="text-muted">
+                        <strong>GymTrack</strong> es un ecosistema tecnológico <strong>B2B2C</strong> diseñado para modernizar la administración y la experiencia de usuario en gimnasios locales y medianos.
+                    </p>
+                    <p class="text-muted">
+                        El sistema integra una <strong>plataforma web administrativa</strong>, una <strong>aplicación móvil</strong>, servicios backend y un <strong>módulo físico IoT basado en tecnología RFID</strong> para automatizar el control de acceso al gimnasio.
+                    </p>
+                    <p class="text-muted">
+                        Buscamos solucionar los problemas operativos actuales centralizando membresías, controles de acceso, rutinas de entrenamiento y cobros, usando arquitectura en la nube con altos estándares de seguridad.
+                    </p>
+                    <a href="#servicios" class="btn btn-outline-primary mt-3 rounded-pill px-4">Conocer Catálogo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         CATÁLOGO DE SERVICIOS (Datos desde MongoDB Atlas)
+    ========================================= -->
+    <section id="servicios" class="py-5 scroll-animate">
+        <div class="container my-5 text-center">
+            <h2 class="fw-bold mb-2">Catálogo de Servicios</h2>
+            <p class="text-muted mb-5">
+                <i class='bx bxl-mongodb text-success fs-4 align-middle'></i> Los siguientes datos son extraídos dinámicamente de nuestra base de datos en <strong>MongoDB Atlas</strong>.
+            </p>
+
+            <!-- Contenedor dinámico donde Javascript inyectará las tarjetas -->
+            <div id="services-container" class="row g-4 justify-content-center">
+                <!-- Loader temporal -->
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         MAPA (Ubicación)
+    ========================================= -->
+    <section id="ubicacion" class="py-5 bg-light scroll-animate">
+        <div class="container text-center my-4">
+            <h2 class="fw-bold mb-4">Encuéntranos</h2>
+            <p class="text-muted mb-4">Visita nuestras instalaciones principales (Mapa interactivo con OpenStreetMap).</p>
+            <div class="map-wrapper shadow rounded">
+                <div id="map"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================
+         FOOTER
+    ========================================= -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <h5 class="fw-bold text-primary mb-1"><i class='bx bx-dumbbell'></i> GymTrack</h5>
+                    <small class="text-muted">Administra. Identifica. Accede. Entrena.</small>
+                </div>
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <small class="text-muted">© 2025 GymTrack. Todos los derechos reservados.</small>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <a href="#" class="text-muted me-3 fs-4"><i class='bx bxl-facebook-circle'></i></a>
+                    <a href="#" class="text-muted me-3 fs-4"><i class='bx bxl-instagram'></i></a>
+                    <a href="#" class="text-muted fs-4"><i class='bx bxl-twitter'></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================
+         SCRIPTS: Bootstrap, Leaflet y Main JS
+    ========================================= -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
