@@ -1,125 +1,155 @@
-/* Globales */
-html {
-    scroll-behavior: smooth;
+/* ═══════════════════════════════════════
+   SOLO lo que Bootstrap NO puede hacer
+   Todo lo demás usa clases de Bootstrap
+═══════════════════════════════════════ */
+
+/* — Fuente global — */
+body { font-family: 'Poppins', sans-serif; }
+.fw-900 { font-weight: 900 !important; }
+.letter-spacing-2 { letter-spacing: 2px; }
+.opacity-10 { opacity: 0.1; }
+
+/* — Navbar efecto Glassmorphism — */
+.transition-nav {
+    transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.3s ease;
+    background: transparent;
 }
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+.transition-nav.scrolled {
+    background: rgba(15, 15, 15, 0.92) !important;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+.navbar-nav .nav-link.active {
+    color: #ff5722 !important;
+    background: rgba(255, 87, 34, 0.1);
+    border-radius: 8px;
 }
 
-/* Colores de marca */
-.text-primary {
-    color: #ff5722 !important; /* Naranja deportivo */
-}
-.bg-primary {
-    background-color: #ff5722 !important;
-}
-.btn-primary, .btn-outline-primary:hover {
-    background-color: #ff5722;
-    border-color: #ff5722;
-    color: #fff;
-}
-.btn-outline-primary {
-    border-color: #ff5722;
-    color: #ff5722;
-}
-
-/* Slider Hero */
+/* — Hero Slides — */
 .hero-slide {
-    height: 70vh;
-    min-height: 500px;
+    height: 90vh;
+    min-height: 600px;
     background-size: cover;
     background-position: center;
 }
-.slide-1 {
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop');
-}
-.slide-2 {
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1470&auto=format&fit=crop');
-}
-.slide-3 {
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1534258936925-c58bed479fcb?q=80&w=1470&auto=format&fit=crop');
-}
-.shadow-text {
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-}
+.slide-1 { background-image: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop'); }
+.slide-2 { background-image: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=1470&auto=format&fit=crop'); }
+.slide-3 { background-image: linear-gradient(135deg, rgba(0,0,0,0.75), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1470&auto=format&fit=crop'); }
 
-/* Animaciones */
-.animate-fade-in-up {
-    animation: fadeInUp 1s ease forwards;
-    opacity: 0;
-    transform: translateY(30px);
-}
-.delay-1 {
-    animation-delay: 0.3s;
-}
-.delay-2 {
-    animation-delay: 0.6s;
-}
+/* — Animaciones — */
 @keyframes fadeInUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(25px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
+.animate-fade-in-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+.delay-1 { animation-delay: 0.15s; }
+.delay-2 { animation-delay: 0.3s;  }
+.delay-3 { animation-delay: 0.45s; }
 
-/* Efectos de Scroll usando Intersection Observer */
 .scroll-animate {
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 0; transform: translateY(30px);
     transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.scroll-animate.visible {
-    opacity: 1;
-    transform: translateY(0);
+.scroll-animate.visible { opacity: 1; transform: translateY(0); }
+
+.card-animate {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.card-animate.visible { opacity: 1; transform: translateY(0); }
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+.stagger-7 { transition-delay: 0.7s; }
+.stagger-8 { transition-delay: 0.8s; }
+
+/* — Tarjetas hover — */
+.card-hover {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
 }
 
-/* Tarjetas de Servicios */
+/* — Tarjetas de Servicios — */
 .service-card {
+    overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    border-radius: 12px;
 }
 .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+}
+.service-card .card-img-top {
+    height: 180px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.service-card:hover .card-img-top {
+    transform: scale(1.08);
 }
 .service-icon {
-    font-size: 3rem;
+    font-size: 1.8rem;
     color: #ff5722;
+    background: #fff;
+    padding: 10px;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-/* Contenedor del Mapa */
-.map-wrapper {
-    width: 100%;
-    height: 500px;
-    overflow: hidden;
-}
-#map {
-    width: 100%;
-    height: 100%;
-    z-index: 1;
+/* — CTA gradient — */
+.cta-section {
+    background: linear-gradient(135deg, #ff5722 0%, #e64a19 50%, #d84315 100%);
 }
 
-/* Panel de ruta (Leaflet Routing Machine) */
+/* — Leaflet overrides — */
 .leaflet-routing-container {
     background: rgba(255,255,255,0.95);
     border-radius: 8px;
     font-size: 0.85rem;
-    max-height: 300px;
+    max-height: 280px;
     overflow-y: auto;
 }
+.user-marker { background: none; border: none; }
 
-/* Marcador del usuario */
-.user-marker {
-    background: none;
-    border: none;
+/* — WhatsApp flotante — */
+.whatsapp-float {
+    position: fixed; bottom: 28px; right: 28px;
+    background: #25D366; color: #fff !important;
+    border-radius: 50%; width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px; text-decoration: none;
+    box-shadow: 0 4px 15px rgba(37,211,102,0.4);
+    z-index: 1050;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: waPulse 2s infinite;
+}
+.whatsapp-float:hover {
+    transform: scale(1.12);
+    box-shadow: 0 6px 25px rgba(37,211,102,0.6);
+    animation: none;
+}
+@keyframes waPulse {
+    0%  { box-shadow: 0 0 0 0 rgba(37,211,102,0.5); }
+    70% { box-shadow: 0 0 0 15px rgba(37,211,102,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(37,211,102,0);   }
 }
 
-/* Footer links */
-footer a {
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-footer a:hover {
-    color: #ff5722 !important;
+/* — Footer links — */
+.footer-link { transition: color 0.3s ease, border-color 0.3s ease; }
+.footer-link:hover { color: #ff5722 !important; border-color: #ff5722 !important; }
+
+/* — Responsive — */
+@media (max-width: 768px) {
+    .hero-slide { height: 75vh; min-height: 450px; }
+    .hero-slide h1 { font-size: 2.2rem !important; }
+    .hero-slide .fs-5 { font-size: 1rem !important; }
+    .whatsapp-float { width: 52px; height: 52px; font-size: 28px; bottom: 18px; right: 18px; }
 }

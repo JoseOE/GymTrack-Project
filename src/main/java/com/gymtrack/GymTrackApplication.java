@@ -55,7 +55,7 @@ public class GymTrackApplication {
 					new GymService(null, "Credenciales RFID",
 						"Tarjetas o pulseras RFID que funcionan como llave de acceso única y segura para tus clientes.",
 						50.0, "bx-id-card",
-						"https://images.unsplash.com/photo-1605809173255-dd6869485b08?q=80&w=600&auto=format&fit=crop",
+						"https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=600&auto=format&fit=crop",
 						"hardware", "Por unidad", false, true),
 					new GymService(null, "Respaldo en la Nube",
 						"Tus datos seguros con arquitectura Multi-tenant, respaldos automáticos y soporte técnico.",

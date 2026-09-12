@@ -1,195 +1,359 @@
 <!DOCTYPE html>
 <html lang="es-MX">
 <head>
-    <!-- Configuración básica -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GymTrack - Ecosistema tecnológico B2B2C para gimnasios. Software, hardware IoT y app móvil.">
 
-    <!-- Información de la página -->
-    <meta name="description" content="GymTrack - Ecosistema tecnológico B2B2C para gimnasios">
-    <meta name="author" content="GymTrack">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap 5 CSS -->
+    <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Leaflet CSS (Para el mapa) -->
+    <!-- Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    <!-- Leaflet Routing Machine CSS (Para la ruta) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.css"/>
-    <!-- BoxIcons para iconos -->
+    <!-- BoxIcons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <!-- Custom CSS -->
+    <!-- Custom (mínimo) -->
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- Título de la página -->
-    <title>GymTrack | Innovación en tu Gimnasio</title>
-
-    <!-- Ícono de la pestaña -->
+    <title>GymTrack | Lleva tu Gimnasio al Siguiente Nivel</title>
     <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2964/2964514.png">
 </head>
-<body>
 
-    <!-- ========================================
-         MENÚ DE NAVEGACIÓN (Secciones del proyecto)
-    ========================================= -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+<body data-bs-spy="scroll" data-bs-target="#main-navbar" data-bs-offset="90" class="bg-white">
+
+    <!-- ═══════════════════════════════════════
+         NAVBAR
+    ═══════════════════════════════════════ -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark fixed-top transition-nav py-3">
         <div class="container">
-            <a class="navbar-brand fw-bold text-primary" href="#">
-                <i class='bx bx-dumbbell'></i> GymTrack
+            <a class="navbar-brand fw-bold fs-3 d-flex align-items-center gap-2" href="#inicio">
+                <i class='bx bx-dumbbell text-primary fs-2'></i>
+                <span>Gym<span class="text-primary">Track</span></span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#quienes-somos">¿Quiénes Somos?</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#servicios">Catálogo de Servicios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#ubicacion">Ubicación</a></li>
+                <ul class="navbar-nav align-items-center gap-1">
+                    <li class="nav-item"><a class="nav-link px-3" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#quienes-somos">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#servicios">Soluciones</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#ubicacion">Ubicación</a></li>
+                    <li class="nav-item ms-lg-2">
+                        <a class="btn btn-primary rounded-pill px-4 py-2 fw-semibold d-flex align-items-center gap-2" href="https://wa.me/527721013839?text=Hola,%20me%20interesa%20GymTrack%20para%20mi%20gimnasio." target="_blank">
+                            <i class='bx bxl-whatsapp fs-5'></i> Contáctanos
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <!-- ========================================
-         SLIDER PRINCIPAL (Descripción del proyecto)
-    ========================================= -->
-    <header>
+    <!-- ═══════════════════════════════════════
+         HERO SLIDER
+    ═══════════════════════════════════════ -->
+    <header id="inicio">
         <div id="sliderPrincipal" class="carousel slide carousel-fade" data-bs-ride="carousel">
-            <!-- INDICADORES -->
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <div class="carousel-indicators mb-4">
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="0" class="active rounded-pill" style="width:30px;height:5px"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="1" class="rounded-pill" style="width:30px;height:5px"></button>
+                <button type="button" data-bs-target="#sliderPrincipal" data-bs-slide-to="2" class="rounded-pill" style="width:30px;height:5px"></button>
             </div>
 
-            <!-- CONTENIDO DEL SLIDER -->
             <div class="carousel-inner">
-                <!-- SLIDE 1 -->
                 <div class="carousel-item active hero-slide slide-1" data-bs-interval="5000">
-                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                        <h1 class="display-3 fw-bold text-white shadow-text animate-fade-in-up">Bienvenido a GymTrack</h1>
-                        <p class="lead shadow-text animate-fade-in-up delay-1">El ecosistema B2B2C que revoluciona la administración de tu gimnasio.</p>
-                        <a href="#quienes-somos" class="btn btn-primary btn-lg mt-3 rounded-pill px-4 animate-fade-in-up delay-2">Conocer más</a>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 px-3">
+                        <span class="badge rounded-pill bg-primary bg-opacity-75 px-4 py-2 mb-3 fs-6 animate-fade-in-up">Plataforma #1 para Gimnasios</span>
+                        <h1 class="display-2 fw-900 text-white mb-3 animate-fade-in-up delay-1">Tu gimnasio,<br><span class="text-primary">otro nivel</span></h1>
+                        <p class="fs-5 text-white-50 mb-4 col-lg-7 animate-fade-in-up delay-2">Automatiza cobros, controla el acceso por hardware y elimina la morosidad. Todo desde una sola plataforma.</p>
+                        <div class="d-flex flex-wrap gap-3 justify-content-center animate-fade-in-up delay-3">
+                            <a href="#quienes-somos" class="btn btn-primary btn-lg rounded-pill px-5 shadow-lg">Conoce más</a>
+                            <a href="https://wa.me/527721013839?text=Hola,%20me%20interesa%20GymTrack." target="_blank" class="btn btn-outline-light btn-lg rounded-pill px-5"><i class='bx bxl-whatsapp'></i> Contactar</a>
+                        </div>
                     </div>
                 </div>
 
-                <!-- SLIDE 2 -->
                 <div class="carousel-item hero-slide slide-2" data-bs-interval="5000">
-                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                        <h1 class="display-3 fw-bold text-white shadow-text">Control IoT y Nube</h1>
-                        <p class="lead shadow-text">Tecnología RFID y bases de datos escalables para tu administración.</p>
-                        <a href="#servicios" class="btn btn-light btn-lg mt-3 rounded-pill px-4">Ver Servicios</a>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 px-3">
+                        <span class="badge rounded-pill bg-warning text-dark px-4 py-2 mb-3 fs-6">Tecnología IoT + Nube</span>
+                        <h1 class="display-2 fw-900 text-white mb-3">Adiós a la<br><span class="text-warning">morosidad</span></h1>
+                        <p class="fs-5 text-white-50 mb-4 col-lg-7">El torniquete inteligente bloquea automáticamente a quienes no están al corriente. Sin intervención manual.</p>
+                        <a href="#servicios" class="btn btn-warning btn-lg rounded-pill px-5 shadow fw-bold text-dark">Ver soluciones</a>
                     </div>
                 </div>
 
-                <!-- SLIDE 3 -->
                 <div class="carousel-item hero-slide slide-3" data-bs-interval="5000">
-                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100">
-                        <h1 class="display-3 fw-bold text-white shadow-text">Membresías Inteligentes</h1>
-                        <p class="lead shadow-text">Gestiona membresías, pagos y accesos desde un solo lugar.</p>
-                        <a href="#servicios" class="btn btn-danger btn-lg mt-3 rounded-pill px-4">Explorar Planes</a>
+                    <div class="carousel-caption d-flex flex-column justify-content-center align-items-center h-100 px-3">
+                        <span class="badge rounded-pill bg-success px-4 py-2 mb-3 fs-6">App Móvil Incluida</span>
+                        <h1 class="display-2 fw-900 text-white mb-3">Retén a tus<br><span class="text-success">clientes</span></h1>
+                        <p class="fs-5 text-white-50 mb-4 col-lg-7">Que tus usuarios vean sus rutinas, progreso y membresía desde su celular. Más engagement, menos bajas.</p>
+                        <a href="#servicios" class="btn btn-success btn-lg rounded-pill px-5 shadow fw-bold">Más información</a>
                     </div>
                 </div>
             </div>
 
-            <!-- BOTÓN ANTERIOR -->
             <button class="carousel-control-prev" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Anterior</span>
+                <span class="carousel-control-prev-icon"></span>
             </button>
-
-            <!-- BOTÓN SIGUIENTE -->
             <button class="carousel-control-next" type="button" data-bs-target="#sliderPrincipal" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
+                <span class="carousel-control-next-icon"></span>
             </button>
         </div>
     </header>
 
-    <!-- ========================================
-         ¿QUIÉNES SOMOS?
-    ========================================= -->
-    <section id="quienes-somos" class="py-5 bg-light scroll-animate">
-        <div class="container my-5">
-            <div class="row align-items-center">
-                <div class="col-md-6 mb-4 mb-md-0">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" class="img-fluid rounded shadow" alt="Interior de gimnasio">
-                </div>
-                <div class="col-md-6 px-4">
-                    <h2 class="fw-bold mb-3 text-primary">¿Quiénes Somos?</h2>
-                    <p class="text-muted">
-                        <strong>GymTrack</strong> es un ecosistema tecnológico <strong>B2B2C</strong> diseñado para modernizar la administración y la experiencia de usuario en gimnasios locales y medianos.
-                    </p>
-                    <p class="text-muted">
-                        El sistema integra una <strong>plataforma web administrativa</strong>, una <strong>aplicación móvil</strong>, servicios backend y un <strong>módulo físico IoT basado en tecnología RFID</strong> para automatizar el control de acceso al gimnasio.
-                    </p>
-                    <p class="text-muted">
-                        Buscamos solucionar los problemas operativos actuales centralizando membresías, controles de acceso, rutinas de entrenamiento y cobros, usando arquitectura en la nube con altos estándares de seguridad.
-                    </p>
-                    <a href="#servicios" class="btn btn-outline-primary mt-3 rounded-pill px-4">Conocer Catálogo</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         CATÁLOGO DE SERVICIOS (Datos desde MongoDB Atlas)
-    ========================================= -->
-    <section id="servicios" class="py-5 scroll-animate">
-        <div class="container my-5 text-center">
-            <h2 class="fw-bold mb-2">Catálogo de Servicios</h2>
-            <p class="text-muted mb-5">
-                <i class='bx bxl-mongodb text-success fs-4 align-middle'></i> Los siguientes datos son extraídos dinámicamente de nuestra base de datos en <strong>MongoDB Atlas</strong>.
-            </p>
-
-            <!-- Contenedor dinámico donde Javascript inyectará las tarjetas -->
-            <div id="services-container" class="row g-4 justify-content-center">
-                <!-- Loader temporal -->
-                <div class="spinner-border text-primary" role="status">
-                    <span class="visually-hidden">Cargando...</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         MAPA (Ubicación)
-    ========================================= -->
-    <section id="ubicacion" class="py-5 bg-light scroll-animate">
-        <div class="container text-center my-4">
-            <h2 class="fw-bold mb-4">Encuéntranos</h2>
-            <p class="text-muted mb-4">Visita nuestras instalaciones principales (Mapa interactivo con OpenStreetMap).</p>
-            <div class="map-wrapper shadow rounded">
-                <div id="map"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========================================
-         FOOTER
-    ========================================= -->
-    <footer class="bg-dark text-white py-4">
+    <!-- ═══════════════════════════════════════
+         MÉTRICAS DE IMPACTO
+    ═══════════════════════════════════════ -->
+    <section class="bg-dark py-4 scroll-animate">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                    <h5 class="fw-bold text-primary mb-1"><i class='bx bx-dumbbell'></i> GymTrack</h5>
-                    <small class="text-muted">Administra. Identifica. Accede. Entrena.</small>
+            <div class="row text-center g-3">
+                <div class="col-6 col-md-3">
+                    <h2 class="fw-bold text-primary mb-1 display-6">90%</h2>
+                    <p class="text-white-50 mb-0 small">Reducción de morosidad</p>
                 </div>
-                <div class="col-md-4 text-center mb-3 mb-md-0">
-                    <small class="text-muted">© 2025 GymTrack. Todos los derechos reservados.</small>
+                <div class="col-6 col-md-3">
+                    <h2 class="fw-bold text-primary mb-1 display-6">15hrs</h2>
+                    <p class="text-white-50 mb-0 small">Ahorradas por semana</p>
                 </div>
-                <div class="col-md-4 text-center text-md-end">
-                    <a href="#" class="text-muted me-3 fs-4"><i class='bx bxl-facebook-circle'></i></a>
-                    <a href="#" class="text-muted me-3 fs-4"><i class='bx bxl-instagram'></i></a>
-                    <a href="#" class="text-muted fs-4"><i class='bx bxl-twitter'></i></a>
+                <div class="col-6 col-md-3">
+                    <h2 class="fw-bold text-primary mb-1 display-6">100%</h2>
+                    <p class="text-white-50 mb-0 small">En la nube · Cero servidores</p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <h2 class="fw-bold text-primary mb-1 display-6">24/7</h2>
+                    <p class="text-white-50 mb-0 small">Soporte técnico</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         ¿QUIÉNES SOMOS?
+    ═══════════════════════════════════════ -->
+    <section id="quienes-somos" class="py-5 scroll-animate">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 position-relative">
+                    <div class="bg-primary rounded-circle position-absolute opacity-10" style="width:180px;height:180px;top:-30px;left:-30px;z-index:0"></div>
+                    <div class="bg-warning rounded-circle position-absolute opacity-10" style="width:100px;height:100px;bottom:20px;right:20px;z-index:0"></div>
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop" 
+                         class="img-fluid rounded-4 shadow-lg position-relative" style="z-index:1" alt="Interior de gimnasio">
+                </div>
+                <div class="col-lg-6">
+                    <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3 fs-6">
+                        <i class='bx bx-bullseye'></i> Nuestra Misión
+                    </span>
+                    <h2 class="display-5 fw-bold mb-4 lh-sm">Modernizamos <span class="text-primary">tu gimnasio</span></h2>
+                    <p class="text-body-secondary fs-5 lh-lg">
+                        <strong class="text-dark">GymTrack</strong> es un ecosistema tecnológico diseñado para que los dueños de gimnasios dejen de preocuparse por la administración y se enfoquen en lo que importa: <strong class="text-primary">hacer crecer su negocio</strong>.
+                    </p>
+                    <p class="text-body-secondary lh-lg">
+                        Centralizamos membresías, cobros automatizados, control de acceso por hardware RFID, rutinas de entrenamiento y analíticas de negocio — todo en una plataforma segura en la nube.
+                    </p>
+
+                    <div class="row g-3 mt-4">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-3 bg-body-tertiary rounded-3 border">
+                                <i class='bx bx-mobile text-primary fs-2 me-3'></i>
+                                <div>
+                                    <span class="fw-bold d-block small">App Nativa</span>
+                                    <small class="text-body-secondary">iOS y Android</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-3 bg-body-tertiary rounded-3 border">
+                                <i class='bx bx-chip text-primary fs-2 me-3'></i>
+                                <div>
+                                    <span class="fw-bold d-block small">Hardware IoT</span>
+                                    <small class="text-body-secondary">ESP32 + RFID</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-3 bg-body-tertiary rounded-3 border">
+                                <i class='bx bx-cloud text-primary fs-2 me-3'></i>
+                                <div>
+                                    <span class="fw-bold d-block small">Nube 24/7</span>
+                                    <small class="text-body-secondary">MongoDB Atlas</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center p-3 bg-body-tertiary rounded-3 border">
+                                <i class='bx bx-lock-alt text-primary fs-2 me-3'></i>
+                                <div>
+                                    <span class="fw-bold d-block small">Multi-tenant</span>
+                                    <small class="text-body-secondary">Datos aislados</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         ¿POR QUÉ GYMTRACK?
+    ═══════════════════════════════════════ -->
+    <section class="py-5 bg-body-tertiary scroll-animate">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <span class="badge rounded-pill bg-warning bg-opacity-10 text-warning px-3 py-2 mb-3 fs-6">
+                    <i class='bx bx-question-mark'></i> ¿Por qué elegirnos?
+                </span>
+                <h2 class="display-5 fw-bold">Problemas reales, <span class="text-primary">soluciones reales</span></h2>
+                <p class="text-body-secondary col-lg-7 mx-auto fs-6">Si eres dueño de un gimnasio, seguro reconoces alguno de estos problemas. GymTrack los resuelve todos.</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4 card-animate stagger-1">
+                    <div class="card border-0 shadow h-100 p-4 text-center rounded-4 card-hover">
+                        <div class="bg-danger bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width:80px;height:80px">
+                            <i class='bx bx-money-withdraw text-danger fs-1'></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Clientes morosos</h5>
+                        <p class="text-body-secondary small mb-4">¿Tienes clientes que entran sin pagar? Nuestro torniquete RFID los bloquea automáticamente.</p>
+                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">✅ Resuelto con IoT</span>
+                    </div>
+                </div>
+                <div class="col-md-4 card-animate stagger-2">
+                    <div class="card border-0 shadow h-100 p-4 text-center rounded-4 card-hover">
+                        <div class="bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width:80px;height:80px">
+                            <i class='bx bx-spreadsheet text-warning fs-1'></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Control en libretas o Excel</h5>
+                        <p class="text-body-secondary small mb-4">¿Sigues anotando pagos en papel? Automatiza todo tu registro de membresías y finanzas.</p>
+                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">✅ Resuelto con Software</span>
+                    </div>
+                </div>
+                <div class="col-md-4 card-animate stagger-3">
+                    <div class="card border-0 shadow h-100 p-4 text-center rounded-4 card-hover">
+                        <div class="bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width:80px;height:80px">
+                            <i class='bx bx-user-minus text-info fs-1'></i>
+                        </div>
+                        <h5 class="fw-bold mb-3">Clientes que se van</h5>
+                        <p class="text-body-secondary small mb-4">¿Tus clientes se aburren y no regresan? La app les da rutinas, progreso y motivos para quedarse.</p>
+                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">✅ Resuelto con la App</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         CATÁLOGO DE SOLUCIONES (MongoDB)
+    ═══════════════════════════════════════ -->
+    <section id="servicios" class="py-5 scroll-animate">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3 fs-6">
+                    <i class='bx bxl-mongodb'></i> Datos en tiempo real · MongoDB Atlas
+                </span>
+                <h2 class="display-5 fw-bold mb-3">Nuestras <span class="text-primary">Soluciones</span></h2>
+                <p class="text-body-secondary col-lg-7 mx-auto fs-6">
+                    Todo lo que necesitas para transformar tu gimnasio. Software, hardware y servicios integrados en un solo ecosistema.
+                </p>
+            </div>
+
+            <div id="services-container" class="row g-4 justify-content-center">
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status" style="width:3rem;height:3rem"></div>
+                    <p class="mt-3 text-body-secondary fw-semibold">Sincronizando con la base de datos...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         CTA (Llamada a la Acción)
+    ═══════════════════════════════════════ -->
+    <section class="cta-section py-5 text-white text-center scroll-animate">
+        <div class="container py-5">
+            <h2 class="display-4 fw-900 mb-3">¿Listo para modernizar<br>tu gimnasio?</h2>
+            <p class="fs-5 mb-5 col-lg-7 mx-auto text-white-50">Contáctanos y descubre cómo GymTrack puede transformar la administración de tu negocio.</p>
+            <div class="d-flex flex-wrap gap-3 justify-content-center">
+                <a href="https://wa.me/527721013839?text=Hola,%20me%20interesa%20implementar%20GymTrack%20en%20mi%20gimnasio." target="_blank" class="btn btn-light btn-lg rounded-pill px-5 fw-bold shadow-lg">
+                    <i class='bx bxl-whatsapp text-success fs-4 align-middle'></i> Escríbenos
+                </a>
+                <a href="#servicios" class="btn btn-outline-light btn-lg rounded-pill px-5">Ver Soluciones</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         MAPA
+    ═══════════════════════════════════════ -->
+    <section id="ubicacion" class="py-5 bg-body-tertiary scroll-animate">
+        <div class="container py-5">
+            <div class="text-center mb-5">
+                <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2 mb-3 fs-6">
+                    <i class='bx bx-map'></i> Ubicación
+                </span>
+                <h2 class="display-5 fw-bold mb-3">Encuéntranos</h2>
+                <p class="text-body-secondary">Visita nuestras oficinas y conoce la tecnología en persona. Te mostraremos la ruta desde tu ubicación.</p>
+            </div>
+            <div class="rounded-4 shadow-lg overflow-hidden border" style="height:500px">
+                <div id="map" class="w-100 h-100"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════
+         FOOTER
+    ═══════════════════════════════════════ -->
+    <footer class="bg-dark text-white pt-5 pb-4">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold fs-4 mb-3 d-flex align-items-center gap-2">
+                        <i class='bx bx-dumbbell text-primary fs-3'></i>
+                        Gym<span class="text-primary">Track</span>
+                    </h5>
+                    <p class="text-white-50 small lh-lg">Administra tu gimnasio en la nube, controla el acceso con IoT y mejora la retención de tus clientes con tecnología de primer nivel.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <h6 class="text-uppercase fw-bold mb-3 text-white letter-spacing-2">Navegación</h6>
+                    <ul class="list-unstyled d-flex flex-column gap-2">
+                        <li><a href="#inicio" class="text-white-50 text-decoration-none footer-link">Inicio</a></li>
+                        <li><a href="#quienes-somos" class="text-white-50 text-decoration-none footer-link">Nosotros</a></li>
+                        <li><a href="#servicios" class="text-white-50 text-decoration-none footer-link">Soluciones</a></li>
+                        <li><a href="#ubicacion" class="text-white-50 text-decoration-none footer-link">Ubicación</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 text-center text-lg-end">
+                    <h6 class="text-uppercase fw-bold mb-3 text-white letter-spacing-2">Contacto</h6>
+                    <p class="text-white-50 small mb-2 d-flex align-items-center justify-content-center justify-content-lg-end gap-2">
+                        <i class='bx bxl-whatsapp text-success fs-5'></i> 772 101 3839
+                    </p>
+                    <p class="text-white-50 small mb-4 d-flex align-items-center justify-content-center justify-content-lg-end gap-2">
+                        <i class='bx bx-envelope text-primary fs-5'></i> contacto@gymtrack.mx
+                    </p>
+                    <div class="d-flex justify-content-center justify-content-lg-end gap-3">
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center footer-link" style="width:40px;height:40px"><i class='bx bxl-facebook-circle fs-5'></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center footer-link" style="width:40px;height:40px"><i class='bx bxl-instagram fs-5'></i></a>
+                        <a href="#" class="btn btn-outline-light btn-sm rounded-circle d-flex align-items-center justify-content-center footer-link" style="width:40px;height:40px"><i class='bx bxl-tiktok fs-5'></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <p class="text-center text-white-50 small mb-0">© 2025 GymTrack. Todos los derechos reservados. Hecho con <i class='bx bxs-heart text-danger'></i> en Hidalgo, México.</p>
         </div>
     </footer>
 
-    <!-- ========================================
-         SCRIPTS: Bootstrap, Leaflet y Main JS
-    ========================================= -->
+    <!-- ═══════════════════════════════════════
+         WHATSAPP FLOTANTE
+    ═══════════════════════════════════════ -->
+    <a href="https://wa.me/527721013839?text=Hola,%20me%20interesa%20implementar%20GymTrack%20en%20mi%20gimnasio." class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <i class='bx bxl-whatsapp'></i>
+    </a>
+
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine@3.2.12/dist/leaflet-routing-machine.min.js"></script>
