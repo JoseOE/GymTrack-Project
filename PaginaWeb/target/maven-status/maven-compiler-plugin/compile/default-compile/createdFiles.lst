@@ -1,0 +1,7 @@
+com\gymtrack\model\GymService.class
+com\gymtrack\repository\GymServiceRepository.class
+com\gymtrack\repository\UserRepository.class
+com\gymtrack\GymTrackApplication.class
+com\gymtrack\controller\GymServiceController.class
+com\gymtrack\model\User.class
+com\gymtrack\controller\UserController.class
