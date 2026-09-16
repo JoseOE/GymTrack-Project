@@ -1,3 +1,4 @@
+# Publica PaginaWeb/src/main/resources/static como sitio de GitHub Pages
 name: Deploy PaginaWeb to GitHub Pages
 
 on:
