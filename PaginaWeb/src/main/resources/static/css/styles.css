@@ -3,16 +3,63 @@
    Todo lo demás usa clases de Bootstrap
 ═══════════════════════════════════════ */
 
+:root {
+    --brand: #ff5722;
+    --brand-dark: #d84315;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+    --shadow-hover: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+html { scroll-behavior: smooth; }
+
 /* — Fuente global — */
 body { font-family: 'Poppins', sans-serif; }
 .fw-900 { font-weight: 900 !important; }
 .letter-spacing-2 { letter-spacing: 2px; }
 .opacity-10 { opacity: 0.1; }
 
+/* — Accesibilidad: respeta preferencia de movimiento reducido — */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+    .scroll-animate, .card-animate { opacity: 1 !important; transform: none !important; }
+}
+
+/* — Foco visible accesible, coherente con la marca — */
+a:focus-visible, button:focus-visible, .btn:focus-visible,
+.form-control:focus-visible, input:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+.form-control:focus, .form-select:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 0.2rem rgba(255, 87, 34, 0.15);
+}
+
+/* — Botones: microinteracción de elevación consistente (se excluyen los botones
+   dentro de input-groups, como el de mostrar/ocultar contraseña, para no romper
+   la alineación del grupo) — */
+.btn:not(.input-group-text) {
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), background-color 0.25s ease, color 0.25s ease;
+}
+.btn:not(.input-group-text):hover, .btn:not(.input-group-text):focus-visible {
+    transform: translateY(-3px);
+}
+.btn:not(.input-group-text):active {
+    transform: translateY(-1px);
+}
+.whatsapp-float:active { transform: scale(1.05); }
+
 /* — Navbar efecto Glassmorphism — */
 .transition-nav {
-    transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.3s ease;
+    transition: background 0.45s var(--ease-out), padding 0.45s var(--ease-out), box-shadow 0.35s ease, border-color 0.35s ease;
     background: transparent;
+    border-bottom: 1px solid transparent;
 }
 .transition-nav.scrolled {
     background: rgba(15, 15, 15, 0.92) !important;
@@ -21,6 +68,25 @@ body { font-family: 'Poppins', sans-serif; }
     padding-top: 0.5rem !important;
     padding-bottom: 0.5rem !important;
     box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    border-bottom-color: rgba(255,255,255,0.08);
+}
+.navbar-nav .nav-link {
+    position: relative;
+    transition: color 0.25s ease;
+}
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 1rem; right: 1rem; bottom: 0;
+    height: 2px;
+    background: var(--brand);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s var(--ease-out);
+}
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    transform: scaleX(1);
 }
 .navbar-nav .nav-link.active {
     color: #ff5722 !important;
@@ -41,23 +107,29 @@ body { font-family: 'Poppins', sans-serif; }
 
 /* — Animaciones — */
 @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(25px); }
+    from { opacity: 0; transform: translateY(28px); }
     to   { opacity: 1; transform: translateY(0); }
 }
-.animate-fade-in-up { animation: fadeInUp 0.8s ease forwards; opacity: 0; }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.animate-fade-in-up { animation: fadeInUp 0.9s var(--ease-out) forwards; opacity: 0; }
 .delay-1 { animation-delay: 0.15s; }
 .delay-2 { animation-delay: 0.3s;  }
 .delay-3 { animation-delay: 0.45s; }
 
 .scroll-animate {
-    opacity: 0; transform: translateY(30px);
-    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    opacity: 0; transform: translateY(35px);
+    transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+    will-change: opacity, transform;
 }
 .scroll-animate.visible { opacity: 1; transform: translateY(0); }
 
 .card-animate {
     opacity: 0; transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+    will-change: opacity, transform;
 }
 .card-animate.visible { opacity: 1; transform: translateY(0); }
 .stagger-1 { transition-delay: 0.1s; }
@@ -69,28 +141,31 @@ body { font-family: 'Poppins', sans-serif; }
 .stagger-7 { transition-delay: 0.7s; }
 .stagger-8 { transition-delay: 0.8s; }
 
+/* — Entrada suave para páginas internas (login, registro, contacto, bienvenido) — */
+.page-fade-in { animation: fadeInUp 0.7s var(--ease-out) forwards; opacity: 0; }
+
 /* — Tarjetas hover — */
 .card-hover {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
 .card-hover:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+    box-shadow: var(--shadow-hover) !important;
 }
 
 /* — Tarjetas de Servicios — */
 .service-card {
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.35s var(--ease-out), box-shadow 0.35s var(--ease-out);
 }
 .service-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.12) !important;
+    box-shadow: var(--shadow-hover) !important;
 }
 .service-card .card-img-top {
     height: 180px;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s var(--ease-out);
 }
 .service-card:hover .card-img-top {
     transform: scale(1.08);
@@ -102,6 +177,10 @@ body { font-family: 'Poppins', sans-serif; }
     padding: 10px;
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.35s var(--ease-out);
+}
+.service-card:hover .service-icon {
+    transform: scale(1.1) rotate(-4deg);
 }
 
 /* — CTA gradient — */
@@ -143,13 +222,47 @@ body { font-family: 'Poppins', sans-serif; }
 }
 
 /* — Footer links — */
-.footer-link { transition: color 0.3s ease, border-color 0.3s ease; }
-.footer-link:hover { color: #ff5722 !important; border-color: #ff5722 !important; }
+.footer-link {
+    display: inline-flex;
+    transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-out);
+}
+.footer-link:hover {
+    color: #ff5722 !important;
+    border-color: #ff5722 !important;
+    transform: translateY(-3px);
+}
+
+/* — Imagen "Quiénes somos": leve zoom al pasar el cursor — */
+#quienes-somos img {
+    transition: transform 0.5s var(--ease-out);
+}
+#quienes-somos .position-relative:hover img {
+    transform: scale(1.03);
+}
+
+/* — Tarjetas de beneficio (App Nativa, Hardware IoT, etc.) — */
+#quienes-somos .bg-body-tertiary.rounded-3.border {
+    transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), border-color 0.3s ease;
+}
+#quienes-somos .bg-body-tertiary.rounded-3.border:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-soft);
+    border-color: rgba(255, 87, 34, 0.3) !important;
+}
 
 /* — Responsive — */
+@media (max-width: 991px) and (min-width: 769px) {
+    .hero-slide { height: 80vh; }
+    section.py-5 { padding-top: 3.5rem !important; padding-bottom: 3.5rem !important; }
+    section.py-5 > .container.py-5 { padding-top: 2.5rem !important; padding-bottom: 2.5rem !important; }
+}
+
 @media (max-width: 768px) {
     .hero-slide { height: 75vh; min-height: 450px; }
     .hero-slide h1 { font-size: 2.2rem !important; }
     .hero-slide .fs-5 { font-size: 1rem !important; }
     .whatsapp-float { width: 52px; height: 52px; font-size: 28px; bottom: 18px; right: 18px; }
+    section.py-5 { padding-top: 3rem !important; padding-bottom: 3rem !important; }
+    section.py-5 > .container.py-5 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+    .card-hover:hover, .service-card:hover { transform: translateY(-4px); }
 }
