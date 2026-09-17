@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "paginaweb-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5173", "--directory", "PaginaWeb/src/main/resources/static"],
+      "port": 5173
+    },
+    {
+      "name": "appmovil-web",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "AppMovil", "run", "web", "--", "--port", "8090"],
+      "port": 8090
+    }
+  ]
+}

@@ -12,6 +12,55 @@ El sistema busca centralizar los principales procesos del gimnasio en un único 
 
 ---
 
+## 🚀 Ejecución y Pruebas Locales (Paso a Paso)
+
+Para probar el ecosistema actual en tu computadora, debes ejecutar tanto el Backend (Spring Boot) como la Aplicación Móvil (Expo). La plataforma web está integrada y es servida por el propio Backend.
+
+### 1. Requisitos Previos
+* **Java 17** instalado (`java -version`).
+* **Node.js** (v18 o superior) instalado (`node -v`).
+* Conexión activa a Internet (para conectar con la base de datos en MongoDB Atlas).
+
+### 2. Levantar el Backend (API y Página Web)
+El backend provee la API REST y sirve la página web (archivos estáticos HTML/CSS/JS).
+
+1. Abre una terminal y navega a la carpeta del backend:
+   ```bash
+   cd PaginaWeb
+   ```
+2. Ejecuta el proyecto con Maven (Spring Boot):
+   * En Windows: `mvnw.cmd spring-boot:run`
+   * En Mac/Linux: `./mvnw spring-boot:run`
+   *(Alternativamente, puedes abrir la carpeta `PaginaWeb` en tu IDE como IntelliJ o VSCode y ejecutar la clase `GymTrackApplication.java`).*
+3. Una vez que la consola indique que ha iniciado (usualmente en el puerto 8080), **abre tu navegador** y visita:
+   👉 **http://localhost:8080**
+   *Aquí verás la Landing Page del proyecto y podrás navegar a las vistas de Login y Registro.*
+
+### 3. Levantar la Aplicación Móvil (React Native / Expo)
+La app móvil consume la API proveída por Spring Boot.
+
+1. Abre **otra** terminal y navega a la carpeta de la app móvil:
+   ```bash
+   cd AppMovil
+   ```
+2. Instala las dependencias (solo la primera vez):
+   ```bash
+   npm install
+   ```
+3. Inicia el servidor de Expo:
+   ```bash
+   npx expo start
+   ```
+4. **Para probar la app:**
+   * **En un Emulador Local:** Presiona la tecla `a` en la terminal para abrir en Android Studio, o `i` para abrir en el simulador de iOS. *(La app está configurada para conectarse a `localhost` o `10.0.2.2` de forma automática).*
+   * **En tu celular físico:** Descarga la app "Expo Go" (Android/iOS) y escanea el código QR que aparece en la terminal. **Nota importante:** Si usas un celular físico, asegúrate de que tanto el celular como tu PC estén en la misma red Wi-Fi, y actualiza temporalmente la variable `API_BASE_URL` en `AppMovil/lib/api.ts` para usar la dirección IP local de tu PC (ej. `http://192.168.1.100:8080`).
+
+**Flujo de Prueba Sugerido:**
+1. Navega a `http://localhost:8080/registro.html` y registra una nueva cuenta.
+2. Abre la aplicación móvil e intenta iniciar sesión con la cuenta que acabas de crear. Esto confirmará que la conexión de red entre la App y la API (y de ahí a MongoDB) funciona correctamente.
+
+---
+
 # Problemática
 
 Actualmente, muchos gimnasios medianos y locales presentan una desconexión entre sus procesos administrativos, el control de acceso y la gestión de los entrenamientos.
@@ -35,7 +84,7 @@ Esta situación puede generar problemas como:
 
 Por su parte, los usuarios pueden experimentar una experiencia fragmentada al depender de diferentes medios para acceder al gimnasio, consultar sus rutinas y registrar su progreso.
 
-GymTrack busca solucionar esta problemática mediante la integración de estos procesos en una sola plataforma en la nube.
+GymTrack busca solucionar esta problemática mediante la integración de estos procesos en una sola plataforma.
 
 ---
 
@@ -51,7 +100,7 @@ Desarrollar e implementar un **ecosistema tecnológico integral denominado GymTr
 
 2. Diseñar y desarrollar una **aplicación móvil** para que los usuarios finales consulten su progreso, rutinas y estado de cuenta.
 
-3. Implementar una base de datos y servicios backend (Supabase) que permitan centralizar y gestionar de forma segura la información de múltiples gimnasios bajo una arquitectura multi-tenant.
+3. Implementar una base de datos y servicios backend (Spring Boot + MongoDB) que permitan centralizar y gestionar de forma segura la información de múltiples gimnasios bajo una arquitectura multi-tenant.
 
 4. Desarrollar un sistema de control de acceso IoT mediante ESP32 y tecnología RFID, capaz de validar en tiempo real el estado de la membresía de los usuarios.
 
@@ -71,7 +120,7 @@ GymTrack estará compuesto por cuatro componentes tecnológicos principales:
       ▼             ▼                ▼             ▼
   Plataforma    Aplicación        Backend         IoT
      Web          Móvil       + Base de Datos  Control de
- (Gimnasios)    (Usuarios)                     Acceso RFID
+ (Gimnasios)    (Usuarios)     (Spring Boot)   Acceso RFID
       │             │                │             │
       └─────────────┴───────┬────────┴─────────────┘
                             │
@@ -95,7 +144,7 @@ El dueño o Administrador podrá:
 * Consultar el historial de accesos registrados por el dispositivo IoT.
 
 📱 2. Aplicación Móvil
-La aplicación móvil será desarrollada utilizando React Native, Expo y TypeScript. Estará enfocada principalmente en el cliente final.
+La aplicación móvil está desarrollada utilizando React Native, Expo y TypeScript. Estará enfocada principalmente en el cliente final.
 
 El Usuario podrá:
 
@@ -120,74 +169,25 @@ La credencial podrá tomar diferentes formas:
 
 El usuario únicamente deberá acercar su credencial al lector instalado en la entrada.
 
-```plaintext
-Usuario
-   │
-   ▼
-Tarjeta / Llavero / Pulsera RFID
-   │
-   ▼
-Lector RFID
-   │
-   ▼
-ESP32
-   │
-   ▼
-Backend (Validación de membresía)
-```
-
-🚪 4. Control de acceso IoT
+🚪 4. Control de acceso IoT (Próximamente)
 El módulo IoT estará instalado físicamente en la entrada del gimnasio, conectado a un torniquete o puerta.
 
 Su función será:
 
 * Detectar una credencial RFID.
 * Obtener el identificador asociado.
-* Enviar la solicitud de validación segura.
-* Consultar el backend (Supabase) para verificar el estado de pago.
+* Enviar la solicitud de validación segura al backend en Java.
+* Consultar la base de datos (MongoDB) para verificar el estado de pago.
 * Autorizar o rechazar el acceso.
 * Accionar el mecanismo de apertura (relé) cuando la membresía esté activa.
-* Registrar el acceso en la base de datos.
-
-El flujo será:
-
-```plaintext
-               Usuario
-                  │
-                  ▼
-            Acerca RFID
-                  │
-                  ▼
-             Lector RFID
-                  │
-                  ▼
-                ESP32
-                  │
-                  ▼
-           Solicitud segura
-                  │
-                  ▼
-         Backend / Supabase
-                  │
-                  ▼
-          ¿Membresía activa?
-            │            │
-          Sí           No
-            │            │
-            ▼            ▼
-      Abrir acceso   Denegar acceso
-            │            │
-            └─────┬─────┘
-                  ▼
-            Registrar evento
-```
+* Registrar el acceso.
 
 🗄️ 5. Backend y Base de Datos
-GymTrack utilizará Supabase como plataforma backend en la nube y PostgreSQL como sistema gestor de base de datos.
+GymTrack utiliza **Java Spring Boot** como API backend principal y **MongoDB Atlas** como base de datos NoSQL.
 
-La base de datos centralizada permitirá que tanto la plataforma web como la app móvil y el dispositivo IoT consuman y actualicen la misma información en tiempo real.
+La base de datos centralizada permite que tanto la plataforma web como la app móvil (y eventualmente el dispositivo IoT) consuman y actualicen la misma información en tiempo real.
 
-Una estructura conceptual sería:
+Una estructura conceptual:
 
 ```plaintext
 Gimnasio
@@ -201,127 +201,42 @@ Gimnasio
    │     ├── Rutinas
    │     └── Entrenamientos
    │
-   ├── Ejercicios
+   ├── Máquinas y Ejercicios
    │
    └── Registros de acceso
 ```
 
-🔐 Seguridad (Aislamiento de Datos)
-Dado que la plataforma web permitirá a múltiples gimnasios contratar el servicio, la información deberá mantenerse estrictamente aislada.
+🔐 Seguridad y Multi-tenancy
+Dado que la plataforma web permitirá a múltiples gimnasios contratar el servicio, la información se aisla a nivel lógico y de base de datos para asegurar que cada administrador solo pueda ver y modificar los datos de su propio gimnasio.
 
-Para ello se utilizará Row Level Security (RLS) en PostgreSQL mediante Supabase.
+🌐 Comunicación IoT (Próximamente)
+La comunicación entre el dispositivo IoT y los servicios backend utilizará protocolos ligeros como MQTT sobre redes Wi-Fi, asegurados mediante encriptación TLS.
 
-```plaintext
-                    Supabase + RLS
-                         │
-           ┌─────────────┼─────────────┐
-           │             │             │
-           ▼             ▼             ▼
-       Gimnasio A    Gimnasio B    Gimnasio C
-           │             │             │
-        Usuarios      Usuarios      Usuarios
-           │             │             │
-           ▼             ▼             ▼
-         Datos         Datos         Datos
-```
+---
 
-Cada administrador de gimnasio, desde su panel web, tendrá acceso únicamente a la información de sus propios clientes.
+# 🛠️ Stack tecnológico
 
-🌐 Comunicación IoT
-La comunicación entre el dispositivo IoT y los servicios backend utilizará protocolos ligeros orientados a IoT.
+**Plataforma Web (SaaS y Landing)**
+* Tecnología: HTML5, CSS3, JavaScript (Vanilla)
+* Uso: Interfaz y lógica del frontend web (Servida directamente por Spring Boot)
+* Tecnología: Bootstrap 5
+* Uso: Framework principal para diseño responsivo
 
-Se contempla el uso de:
-
-```plaintext
-ESP32
-  │
-  ▼
-Wi-Fi
-  │
-  ▼
-MQTT
-  │
-  ▼
-TLS (Cifrado)
-  │
-  ▼
-Backend (Supabase)
-```
-
-MQTT permitirá establecer una comunicación eficiente entre el dispositivo y los servicios del sistema, mientras que TLS proporcionará cifrado durante la transmisión.
-
-🎓 Aplicación académica por materia
-GymTrack es un proyecto multidisciplinario que permitirá integrar los conocimientos de diferentes asignaturas de la carrera de Ing. en TICs.
-
-💼 Negocios Electrónicos
-Aplicación en GymTrack
-GymTrack operará bajo un modelo SaaS (Software as a Service) con un esquema B2B2C. La plataforma web es el canal principal de este negocio.
-
-```plaintext
-                 GymTrack (SaaS)
-                    │
-                    ▼
-          Página Web (Contratación B2B)
-                    │
-                    ▼
-                 Gimnasio
-                    │
-             ┌──────┴──────┐
-             │             │
-             ▼             ▼
-      Administrador      App Móvil
-             │             │
-             └──────┬──────┘
-                    ▼
-            Cliente Final (B2C)
-```
-
-Aplicación de la materia
-Se analizarán:
-
-* Venta de suscripciones web a dueños de gimnasios.
-* Implementación de hardware como cobro adicional.
-* Reducción de la morosidad a través de la automatización.
-* Propuesta de valor B2B y B2C.
-* Canales de adquisición digitales.
-
-📱 Desarrollo de Aplicaciones Móviles
-Desarrollo de la aplicación nativa (React Native + Expo) enfocada en el usuario final (B2C) para la visualización de rutinas, historial y métricas de progreso.
-
-🌐 Internet de las Cosas (IoT)
-Desarrollo del nodo sensor/actuador (ESP32 + Lector RFID + Relé) instalado físicamente en los gimnasios para validar en tiempo real los pagos registrados en la web y controlar el torniquete de acceso.
-
-🌐 Administración y Seguridad de Redes
-Implementación de la arquitectura cliente-servidor (Web, App, IoT) hacia la nube (Supabase). Diseño de políticas de Row Level Security (RLS) para arquitectura Multi-tenant, y configuración de protocolos MQTT con cifrado TLS para el acceso físico.
-
-🔬 Taller de Investigación II
-Investigación aplicada para medir el impacto comercial y operativo: "¿Cómo la implementación del ecosistema GymTrack reduce la morosidad, mejora el control de accesos y aumenta la retención de clientes en comparación con procesos manuales?".
-
-🛠️ Stack tecnológico
-
-Plataforma Web (SaaS)
-* Tecnología: React / Next
-* Uso: Framework web para el dashboard
-* Tecnología: Tailwind CSS
-* Uso: Estilos e interfaces
-
-Aplicación Móvil
+**Aplicación Móvil**
 * Tecnología: React Native
 * Uso: Desarrollo multiplataforma
-* Tecnología: Expo
-* Uso: Framework de desarrollo
+* Tecnología: Expo y Expo Router
+* Uso: Framework de desarrollo y manejo de navegación
 * Tecnología: TypeScript
 * Uso: Tipado estático
 
-Backend y Seguridad
-* Tecnología: Supabase
-* Uso: Backend en la nube (BaaS)
-* Tecnología: PostgreSQL
-* Uso: Base de datos Multi-tenant
-* Tecnología: RLS
-* Uso: Seguridad y aislamiento (B2B)
+**Backend y Seguridad**
+* Tecnología: Java Spring Boot
+* Uso: Framework principal para construir la API REST
+* Tecnología: MongoDB (Atlas)
+* Uso: Base de datos NoSQL en la nube
 
-IoT
+**IoT (Arquitectura Planeada)**
 * Tecnología: ESP32
 * Uso: Microcontrolador
 * Tecnología: RFID
@@ -329,7 +244,9 @@ IoT
 * Tecnología: MQTT + TLS
 * Uso: Comunicación remota segura
 
-🗺️ Roadmap
+---
+
+# 🗺️ Roadmap
 
 Fase 1 — Planeación
 - [x] Definir problemática.
@@ -337,29 +254,32 @@ Fase 1 — Planeación
 - [x] Definir modelo B2B2C (SaaS).
 - [x] Diseñar arquitectura multidisciplinaria.
 
-Fase 2 — Plataforma Web & Backend (Negocios Electrónicos)
-- [ ] Configurar Supabase y PostgreSQL.
-- [ ] Crear esquema de BD y políticas RLS para múltiples gimnasios.
-- [ ] Desarrollar página web administrativa.
-- [ ] Implementar gestión de usuarios, membresías y pagos desde la web.
+Fase 2 — Plataforma Web & Backend
+- [x] Configurar proyecto en Spring Boot y conectar MongoDB Atlas.
+- [x] Crear endpoints básicos (Usuarios, Gimnasios, Máquinas, Rutinas, Workouts).
+- [x] Desarrollar Landing Page comercial funcional (HTML/CSS/JS + Bootstrap).
+- [ ] Refactorizar seguridad (Reemplazar SHA-256 plano por Bcrypt e implementar JWT).
+- [ ] Desarrollar y conectar el Dashboard administrativo para dueños de gimnasios.
 
 Fase 3 — Aplicación Móvil (Usuarios)
-- [x] Crear proyecto Expo.
-- [ ] Diseñar interfaz de usuario final.
-- [ ] Visualización de rutinas y estado de cuenta.
-- [ ] Historial y récords personales.
+- [x] Crear proyecto base en Expo.
+- [x] Diseñar pantallas clave (Auth, Tabs principales: Progreso, Rutinas, Entrenar).
+- [x] Implementar capa de API y conectar `fetch` hacia el backend en Spring Boot.
+- [ ] Mejorar el manejo de la sesión persistente y seguridad (Tokens).
 
 Fase 4 — IoT (Control de Acceso)
-- [ ] Configurar ESP32 y Lector RFID.
-- [ ] Implementar comunicación MQTT segura con Supabase.
-- [ ] Validar membresías y accionar relés de apertura.
+- [ ] Configurar el microcontrolador ESP32 y Lector RFID.
+- [ ] Implementar un Broker MQTT y conectar el flujo IoT hacia Spring Boot.
+- [ ] Lógica para accionar relés de apertura al validar membresía.
 
 Fase 5 — Integración e Investigación
-- [ ] Pruebas del ecosistema completo (Web -> DB -> IoT -> App).
+- [ ] Pruebas E2E del ecosistema (Web -> Backend -> MongoDB -> IoT -> App).
 - [ ] Instalación piloto en un gimnasio real.
-- [ ] Evaluación de impacto (reducción de morosidad).
+- [ ] Evaluación de impacto (reducción de morosidad y adopción).
 
-📊 Indicadores de impacto
+---
+
+# 📊 Indicadores de impacto
 * Tiempo de validación: Medir rapidez del acceso
 * Accesos automatizados: Medir funcionamiento del sistema
 * Membresías vencidas detectadas: Evaluar control administrativo
@@ -370,12 +290,12 @@ Fase 5 — Integración e Investigación
 * Satisfacción del usuario: Evaluar experiencia
 * Retención de clientes: Evaluar impacto comercial
 
-📌 Estado del proyecto
-Estado: 🚧 En desarrollo
+---
 
-GymTrack se encuentra actualmente en la etapa de planeación, definición de arquitectura y configuración del entorno de desarrollo.
+# 📌 Estado del proyecto
+Estado: 🚧 En desarrollo activo
 
-El proyecto integra diferentes áreas:
+GymTrack se encuentra actualmente desarrollando su plataforma base; la comunicación entre la API (Spring Boot) y la Aplicación Móvil ya está establecida en un ambiente local, y se prepara para recibir la capa de hardware y mejorar la seguridad en producción.
 
 ```plaintext
         Desarrollo de Apps
@@ -388,7 +308,7 @@ Negocios ─── GymTrack ─── IoT
                 │
                 │
                 ▼
-         Backend + BD (Web)
+         Backend (Java) + BD (MongoDB)
                 │
                 ▼
         Redes y Seguridad
@@ -397,22 +317,12 @@ Negocios ─── GymTrack ─── IoT
           Investigación
 ```
 
-📚 Recursos
-* Expo
-* React Native
-* TypeScript
-* Supabase
-* PostgreSQL
-* MQTT
-* ESP32
-
-👥 Proyecto académico
+# 👥 Proyecto académico
 * Proyecto: GymTrack
 * Modelo de negocio: B2B2C (SaaS)
-* Tipo: Ecosistema tecnológico para gimnasios locales
-* Plataforma Administrativa: Aplicación Web (React)
+* Plataforma Administrativa: Web (HTML/JS/Bootstrap)
 * Aplicación Usuarios: React Native + Expo
-* Backend: Supabase + PostgreSQL
+* Backend: Java Spring Boot + MongoDB
 * Control de acceso: RFID + ESP32
 * Comunicación IoT: MQTT + TLS
 
