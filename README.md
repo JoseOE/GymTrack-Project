@@ -10,6 +10,7 @@ La **página web** será la herramienta principal para los dueños de los gimnas
 
 El sistema busca centralizar los principales procesos del gimnasio en un único ecosistema tecnológico, conectando la administración web, el control de acceso IoT y la experiencia deportiva móvil del usuario.
 
+
 ---
 
 ## 🚀 Ejecución y Pruebas Locales (Paso a Paso)
@@ -28,6 +29,7 @@ El backend provee la API REST y sirve la página web (archivos estáticos HTML/C
    ```bash
    cd PaginaWeb
    ```
+
 2. Ejecuta el proyecto con Maven (Spring Boot):
    * En Windows: `mvnw.cmd spring-boot:run`
    * En Mac/Linux: `./mvnw spring-boot:run`
